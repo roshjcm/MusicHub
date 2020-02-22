@@ -1,5 +1,6 @@
 import numpy as np 
 import random
+import csv
 
 
 num= 50 #num of instances to be generated
@@ -16,6 +17,7 @@ username_list=[]
 country_list=[]
 birthday_list=[]
 credit_info_list=[]
+uid_list=[]
 
 for i in range(num):
 	name=random.choice(first_names)+" "+random.choice(last_names)
@@ -27,6 +29,11 @@ for i in range(num):
 	birthday_list.append(birthday)
 	credit_info=str(randint(1111111111111111,9999999999999999)) #16 digits credit card info
 	credit_info_list.append(credit_info)
-	
+	uid= randint(0,400)
+	while (uid in uid_list):
+		uid=randint(0,400)
+	uid_list.append(uid)
+
+
 
 
