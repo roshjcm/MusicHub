@@ -6,13 +6,13 @@ import pandas
 
 num= 50 #num of instances to be generated
 
-#USERS
+#*************************************** USERS *********************************************************
 first_names=['Louise','Janna','Roshane', 'Kyra','Olive','Soraya','Tara','Misgana','Noreen', 'Bahar'
 				'Maanav', 'Thomas', 'Sam', 'Karim', 'Max', 'Elio', 'Theo', 'Kian', 'Zhang', 'Magnus']
 last_names=['Wang','Jones','Porta','Kourilsky','Garcia','Patel','Nguyen','Meijer','Markoski',\
 			'Wilson','Williams','Rodriguez','D\'Angelo','Leone','Castelli']
 countries=['Canada','United States','Mexico','France','Egypt','Bolivia','Vietnam','China','Italy','Russia','England','Spain']
-email_tails=['@gmail.com',"@yahoo.com","@aol.com","@mail.mcgill.ca"]
+email_tails=['@gmail.com','@yahoo.com','@mail.mcgill.ca']
 
 name_list=[]
 username_list=[]
@@ -54,3 +54,6 @@ for i in range(num):
 df = pandas.DataFrame(data={"uid": uid_list, "name": name_list, "username": username_list, "country":country_list,"email":email_list, 
 	"birthday":birthday_list,"credit info":credit_info_list})
 df.to_csv("./user.csv", sep=',',index=False)
+
+
+
