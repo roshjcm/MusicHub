@@ -53,7 +53,7 @@ for i in range(num):
 
 df = pandas.DataFrame(data={"uid": uid_list, "name": name_list, "username": username_list, "country":country_list,"email":email_list, 
 	"birthday":birthday_list,"credit info":credit_info_list})
-df.to_csv("./user.csv", sep=',',index=False)
+df.to_csv("./datasets/user.csv", sep=',',index=False)
 
 
 
