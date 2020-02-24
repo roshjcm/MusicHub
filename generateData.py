@@ -55,9 +55,9 @@ def generateUserData(num):
 def generateArticleID():
 	# Now need to add articleID to the article.csv file
 	df_articles= pandas.read_csv("./datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
-	print(np.shape(df_articles))
+	numRows=np.shape(df_articles)[0]
 	articleID_list=[]
-	for i in range(149):
+	for i in range(numRows):
 		articleID= randint(0,500)
 		while (articleID in articleID_list):
 			articleID=randint(0,500)
