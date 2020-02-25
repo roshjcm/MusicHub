@@ -1,7 +1,8 @@
-
+1
 
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
+	name VARCHAR(30),
 	username VARCHAR(20),
 	country VARCHAR(15),
 	email VARCHAR(25), 
