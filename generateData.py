@@ -64,12 +64,35 @@ def generateArticleID():
 		articleID_list.append(articleID)
 	df_articles['articleID']=articleID_list
 	df_articles.to_csv('./datasets/articles.csv', index=False)
+	
+
+def updateAlbumAndSongCSV():
+	df_songs= pandas.read_csv("./datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
+	df_albums= pandas.read_csv("./datasets/albums.csv", index_col=False, encoding='ISO-8859-1')
+	df_articles= pandas.read_csv("./datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
+
+	numRows_art=np.shape(df_articles)[0]
+
+	albumID_list=[]
+	songsID_list=[]
+
+	for i in range(numRows_art):
+		if (df_articles['ISA Album'][i]==1):
+			albumID=df_articles['articleID'][i]
+			albumID_list.append(albumID)
+		elif (df_articles['ISA Album'][i]==0):
+			songID=df_articles['articleID'][i]
+			songsID_list.append(songID)
+	df_albums['articleID']=albumID_list
+	df_albums.to_csv('./datasets/albums.csv', index=False)
+	df_songs['articleID']=songsID_list
+	df_songs.to_csv('./datasets/songs.csv', index=False)
 
 def main_menu():
 	answer=-1
 	print("Main Menu")
 	while (not(answer==1 or answer==2)):
-		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\n")
+		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\n(Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
 		answer=int(input())
 	if (answer==1):
 		print("How many users do you want?")
@@ -77,7 +100,18 @@ def main_menu():
 		generateUserData(num)
 	else:
 		generateArticleID()
+		updateAlbumAndSongCSV()
 
 
 
 main_menu()
+
+
+	# df_songs= pandas.read_csv("./datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
+	# numRows_songs=np.shape(df_songs)[0]
+	# duration_list=[]
+	# for i in range(numRows_songs):
+	# 	duration= str(randint(0,5))+":"+str(randint(10,59))
+	# 	duration_list.append(duration)
+	# df_songs['Duration']=duration_list
+	# df_songs.to_csv('./datasets/songs.csv', index=False)
