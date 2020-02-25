@@ -2,6 +2,7 @@
 
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
+	name VARCHAR(30)
 	username VARCHAR(20),
 	country VARCHAR(15),
 	email VARCHAR(25), 
@@ -52,7 +53,7 @@ CREATE TABLE albums(
 );
 
 CREATE TABLE songs(
-	duration FLOAT(4),
+	duration VARCHAR(6),
 	FOREIGN KEY(article_id) REFERENCES articles
 );
 
