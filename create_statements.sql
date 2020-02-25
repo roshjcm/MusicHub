@@ -1,8 +1,9 @@
-1
+
+/* Entity Sets */
 
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
-	name VARCHAR(30),
+	name VARCHAR(30)
 	username VARCHAR(20),
 	country VARCHAR(15),
 	email VARCHAR(25), 
@@ -53,7 +54,7 @@ CREATE TABLE albums(
 );
 
 CREATE TABLE songs(
-	duration FLOAT(4),
+	duration VARCHAR(6),
 	FOREIGN KEY(article_id) REFERENCES articles
 );
 
@@ -63,6 +64,58 @@ CREATE TABLE shopping_carts(
 	num_articles INT,
 	PRIMARY KEY (order_id)
 );
+
+
+
+/* Relation sets */
+
+CREATE TABLE Releases ( 
+	FOREIGN KEY(artist_id) REFERENCES artists(uid),
+	FOREIGN KEY(article_id) REFERENCES articles
+);
+
+CREATE TABLE BelongsTo ( 
+	FOREIGN KEY(song_id) REFERENCES songs(article_id),
+	FOREIGN KEY(album_id) REFERENCES albums(article_id)
+);
+
+CREATE TABLE ComprisesOf ( 
+	FOREIGN KEY(lib_id) REFERENCES libraries,
+	FOREIGN KEY(name) REFERENCES playlists
+);
+
+CREATE TABLE IsAddedTo ( 
+	FOREIGN KEY(articl_id) REFERENCES articles,
+	FOREIGN KEY(lib_id) REFERENCES libraries
+);
+
+CREATE TABLE IsPartOf ( 
+	FOREIGN KEY(name) REFERENCES playlist,
+	FOREIGN KEY(lib_id) REFERENCES libraries
+);
+
+CREATE TABLE Contains ( 
+	FOREIGN KEY(order_id) REFERENCES shopping_carts,
+	FOREIGN KEY(article_id) REFERENCES articles
+);
+
+CREATE TABLE Uses ( 
+	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
+	FOREIGN KEY(order_id) REFERENCES shopping_carts
+);
+
+CREATE TABLE Creates ( 
+	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
+	FOREIGN KEY(lib_id) REFERENCES libraries,
+	FOREIGN KEY(name) REFERENCES playlist
+);
+
+CREATE TABLE moneyEarned ( 
+	FOREIGN KEY(artist_id) REFERENCES artists(uid),
+	FOREIGN KEY(order_id) REFERENCES shopping_carts,
+	money_received FLOAT (4)
+);
+
 
 
 
