@@ -39,13 +39,17 @@ CREATE TABLE users (
 
 
 CREATE TABLE listeners ( 
+	uid INTEGER NOT NULL,
+	PRIMARY KEY(uid),
 	FOREIGN KEY(uid) REFERENCES users(uid)
 );
 
 
 CREATE TABLE artists (
+	uid INTEGER NOT NULL,
 	stage_name VARCHAR (10),
 	balance FLOAT(7),
+	PRIMARY KEY(uid),
 	FOREIGN KEY(uid) REFERENCES users(uid)
 );
 
@@ -74,12 +78,16 @@ CREATE TABLE articles(
 );
 
 CREATE TABLE albums(
+	article_id INTEGER NOT NULL,
 	type VARCHAR (20),
+	PRIMARY KEY (article_id),
 	FOREIGN KEY(article_id) REFERENCES articles
 );
 
 CREATE TABLE songs(
+	article_id INTEGER NOT NULL,
 	duration VARCHAR(6),
+	PRIMARY KEY (article_id),
 	FOREIGN KEY(article_id) REFERENCES articles
 );
 
@@ -95,9 +103,9 @@ CREATE TABLE shopping_carts(
 -- ************* RELATION SETS ************* --
 
 CREATE TABLE Releases ( 
-	aritst_id INTEGER NOT NULL,
+	artist_id INTEGER NOT NULL,
 	article_id INTEGER NOT NULL,
-	PRIMARY KEY(artists_id, article_id),
+	PRIMARY KEY(artist_id, article_id),
 	FOREIGN KEY(artist_id) REFERENCES artists(uid),
 	FOREIGN KEY(article_id) REFERENCES articles
 );
@@ -130,7 +138,7 @@ CREATE TABLE IsPartOf (
 	name VARCHAR(30),
 	lib_id INTEGER NOT NULL,
 	PRIMARY KEY(name, lib_id),
-	FOREIGN KEY(name) REFERENCES playlist,
+	FOREIGN KEY(name) REFERENCES playlists,
 	FOREIGN KEY(lib_id) REFERENCES libraries
 );
 
@@ -161,10 +169,10 @@ CREATE TABLE Creates (
 );
 
 CREATE TABLE moneyEarned ( 
-	aritst_id INTEGER NOT NULL,
+	artist_id INTEGER NOT NULL,
 	order_id INTEGER NOT NULL, 
 	money_received FLOAT (4),
-	PRIMARY KEY(aritst_id, order_id),
+	PRIMARY KEY(artist_id, order_id),
 	FOREIGN KEY(artist_id) REFERENCES artists(uid),
 	FOREIGN KEY(order_id) REFERENCES shopping_carts
 );
