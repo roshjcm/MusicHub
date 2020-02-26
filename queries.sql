@@ -41,5 +41,5 @@ WHERE R.article_id = A.article_id AND 2020-01-01 <= A.release_date < 2020-02-01;
 
 SELECT artists.stage_name
 FROM artists
-WHERE artists.uid EXISTS (SELECT COUNT(article_id), A.uid FROM [january selection] GROUP BY A.uid);
+WHERE artists.uid EXISTS (SELECT COUNT(article_id), A.uid FROM [january selection] GROUP BY A.uid) AND COUNT(article_id)>20;
 
