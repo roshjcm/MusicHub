@@ -1,38 +1,33 @@
-/* Display the content of an Album*/
-SELECT S.title, S.release_date, S.genre, S.price
-FROM songs S
-WHERE S.article_id IN (SELECT B.song_id
-				FROM BelongsTo B, albums A
-				WHERE A.article_id = B.album_id )
+--Display the content of an Album--
+SELECT *
+FROM songs, BelongsTo
+WHERE songs.article_id = BelongsTo.song_id AND BelongsTo.album_id = "album_id_of_interest"
 
-/* Search all the Artist releases*/
-SELECT title, release_date, genre, price
+
+--Search all the releases of specific artist--
+SELECT title
 FROM articles
-WHERE article_id IN (SELECT R.song_id
-				FROM Releases R, artist A
-				WHERE A.user_id = R.artist_id)
+WHERE article_id IN (SELECT song_id
+				FROM Releases
+				WHERE artist_id = "artist_id_of_interest")
 
-/* Get all the Articles that the Listener selected in his shopping cart*/
+--Get all the Articles that the Listener selected in his shopping cart--
 SELECT DISTINCT Article.id
 FROM articles
 WHERE article_id IN (SELECT C.articleID
-				FROM Contains C, shopping_carts S
+				FROM Contains C
 				WHERE S.order_id = C.order_id)
 
-/* Display all the songs from a specific artist in the Listener's Library*/
+--Display all the songs from a specific artist in the Listener's Library--
 SELECT S.title
-FROM songs S
-WHERE S.articleID IN (SELECT R.songID
-				FROM Releases R, Artist A
-				WHERE A.userID = R.artistID)
+FROM songs S, releases R
+WHERE S.article_id = R.song_id AND R.artist_id = "artist_id_of_interest"
 INTERSECT
 SELECT S.title
-FROM songs S
-WHERE S.article_id IN (SELECT A.article_id
-				FROM libraries L, IsAddedTo A
-				WHERE A.libid = L.libid)
+FROM songs S, isAddedTo A
+WHERE S.article_id = A.article_id AND A.libid = "lib_id_of_interest"
 
 /*Display the Listener's order history*/
 SELECT Uses.order_id
-FROM Uses, listeners
-WHERE Uses.listener_Iid = listeners.uid
+FROM Uses,
+WHERE Uses.listener_id = "listener_id_of_interest"
