@@ -50,6 +50,12 @@ def generateUserData(num):
 		"birthday":birthday_list,"credit info":credit_info_list})
 	df_users.to_csv("./datasets/user.csv", sep=',',index=False)
 
+	# artists_uid_list=[]
+	# df_artists= pandas.read_csv("./datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
+
+	# df_artists['uid']=artists_uid_list
+	# df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
+
 
 
 def generateArticleID():
@@ -88,6 +94,8 @@ def updateAlbumAndSongCSV():
 	df_songs['articleID']=songsID_list
 	df_songs.to_csv('./datasets/songs.csv', index=False)
 
+# def generateInsert():
+	
 def main_menu():
 	answer=-1
 	print("Main Menu")
