@@ -179,6 +179,14 @@ CREATE TABLE moneyEarned (
 	FOREIGN KEY(order_id) REFERENCES shopping_carts
 );
 
+CREATE TABLE Has(
+	listener_id INTEGER NOT NULL,
+	lib_id INTER NOT NULL,
+	PRIMARY KEY(listener_id,lib_id),
+	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
+	FOREIGN KEY(lib_id) REFERENCES libraries,
+);
+
 
 -- ************* Insert statements ************* --
 
