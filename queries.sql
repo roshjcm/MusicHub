@@ -24,14 +24,14 @@ WHERE a.article_id = r.article_id
 	AND a.article_id = ANY (SELECT article_id FROM Contains WHERE order_id = "orderid_of_interest")
 GROUP BY artist_id;
 
---Display all the songs from a specific artist in the Listener's Library--
-SELECT S.title
-FROM songs S, releases R
-WHERE S.article_id = R.song_id AND R.artist_id = "artist_id_of_interest"
+--Display all the artists that realeased Rap musics and Pop musics--
+SELECT DISTINCT R.artist
+FROM artticles A, releases R
+WHERE A.article_id = R.song_id AND R.genre = "Rap"
 INTERSECT
-SELECT S.title
-FROM songs S, isAddedTo A
-WHERE S.article_id = A.article_id AND A.libid = "lib_id_of_interest";
+SELECT DISTINCT R.title
+FROM articles A, releases R
+WHERE A.article_id = R.song_id AND R.genre = "Pop";
 
 --Display the Listener's order history--
 SELECT Uses.order_id
