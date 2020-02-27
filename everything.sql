@@ -30,10 +30,10 @@ DROP TABLE IF EXISTS Has CASCADE;
 -- ************* ENTITY SETS ************* --
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
-	name VARCHAR(30),
+	name VARCHAR(30)
 	username VARCHAR(20),
 	country VARCHAR(15),
-	email VARCHAR(50), 
+	email VARCHAR(35), 
 	dob DATE, 
 	credit_info VARCHAR(30),
 	PRIMARY KEY(uid)
@@ -64,7 +64,6 @@ CREATE TABLE libraries(
 
 CREATE TABLE playlists(
 	name VARCHAR(30),
-	lib_id INTEGER NOT NULL,
 	status VARCHAR(10),
 	num_songs INT,
 	PRIMARY KEY(name),
@@ -73,7 +72,7 @@ CREATE TABLE playlists(
 
 CREATE TABLE articles(
 	article_id INTEGER NOT NULL,
-	title VARCHAR(30), 
+	title VARCHAR(50), 
 	release_date DATE, 
 	price FLOAT (4), 
 	genre VARCHAR (30),
@@ -96,7 +95,7 @@ CREATE TABLE songs(
 
 CREATE TABLE shopping_carts(
 	order_id INTEGER NOT NULL, 
-	total_amount FLOAT (4),
+	total_amount FLOAT (5),
 	num_articles INT,
 	PRIMARY KEY (order_id)
 );
@@ -124,9 +123,11 @@ CREATE TABLE BelongsTo (
 CREATE TABLE ComprisesOf ( 
 	lib_id INTEGER NOT NULL,
 	name VARCHAR(30),
-	PRIMARY KEY(lib_id, name),
+	song_id INTEGER NOT NULL,
+	PRIMARY KEY(lib_id, name, song_id),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
 	FOREIGN KEY(name) REFERENCES playlists
+	FOREIGN KEY(song_id) REFERENCES songs(article_id)
 );
 
 CREATE TABLE IsAddedTo ( 
@@ -168,7 +169,7 @@ CREATE TABLE Creates (
 	PRIMARY KEY(listener_id, lib_id, name),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
-	FOREIGN KEY(name) REFERENCES playlists
+	FOREIGN KEY(name) REFERENCES playlist
 );
 
 CREATE TABLE moneyEarned ( 
@@ -182,10 +183,10 @@ CREATE TABLE moneyEarned (
 
 CREATE TABLE Has(
 	listener_id INTEGER NOT NULL,
-	lib_id INTEGER NOT NULL,
-	PRIMARY KEY(listener_id,lib_id),
+	lib_id INTER NOT NULL,
+	PRIMARY KEY(listener_id,lib_id)
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
-	FOREIGN KEY(lib_id) REFERENCES libraries
+	FOREIGN KEY(lib_id) REFERENCES libraries,
 );
 
 
