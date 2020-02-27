@@ -32,7 +32,7 @@ CREATE TABLE users (
 	name VARCHAR(30),
 	username VARCHAR(20),
 	country VARCHAR(15),
-	email VARCHAR(25), 
+	email VARCHAR(50), 
 	dob DATE, 
 	credit_info VARCHAR(30),
 	PRIMARY KEY(uid)
@@ -48,7 +48,7 @@ CREATE TABLE listeners (
 
 CREATE TABLE artists (
 	uid INTEGER NOT NULL,
-	stage_name VARCHAR (10),
+	stage_name VARCHAR (20),
 	balance FLOAT(7),
 	PRIMARY KEY(uid),
 	FOREIGN KEY(uid) REFERENCES users(uid)
@@ -167,7 +167,7 @@ CREATE TABLE Creates (
 	PRIMARY KEY(listener_id, lib_id, name),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
-	FOREIGN KEY(name) REFERENCES playlist
+	FOREIGN KEY(name) REFERENCES playlists
 );
 
 CREATE TABLE moneyEarned ( 
@@ -181,10 +181,10 @@ CREATE TABLE moneyEarned (
 
 CREATE TABLE Has(
 	listener_id INTEGER NOT NULL,
-	lib_id INTER NOT NULL,
+	lib_id INTEGER NOT NULL,
 	PRIMARY KEY(listener_id,lib_id),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
-	FOREIGN KEY(lib_id) REFERENCES libraries,
+	FOREIGN KEY(lib_id) REFERENCES libraries
 );
 
 
@@ -304,44 +304,44 @@ INSERT INTO artists(uid,stage_name,balance) values (71,'Zephiro',0.0);
 
 
 
-INSERT INTO libraries(libid,num_songs) values (1,6);
-INSERT INTO libraries(libid,num_songs) values (2,4);
-INSERT INTO libraries(libid,num_songs) values (3,2);
-INSERT INTO libraries(libid,num_songs) values (4,4);
-INSERT INTO libraries(libid,num_songs) values (5,2);
-INSERT INTO libraries(libid,num_songs) values (6,5);
-INSERT INTO libraries(libid,num_songs) values (7,2);
-INSERT INTO libraries(libid,num_songs) values (8,2);
-INSERT INTO libraries(libid,num_songs) values (9,2);
-INSERT INTO libraries(libid,num_songs) values (10,5);
-INSERT INTO libraries(libid,num_songs) values (11,4);
-INSERT INTO libraries(libid,num_songs) values (12,2);
-INSERT INTO libraries(libid,num_songs) values (13,2);
-INSERT INTO libraries(libid,num_songs) values (14,2);
-INSERT INTO libraries(libid,num_songs) values (15,3);
-INSERT INTO libraries(libid,num_songs) values (16,7);
-INSERT INTO libraries(libid,num_songs) values (17,8);
+INSERT INTO libraries(lib_id,num_songs) values (1,6);
+INSERT INTO libraries(lib_id,num_songs) values (2,4);
+INSERT INTO libraries(lib_id,num_songs) values (3,2);
+INSERT INTO libraries(lib_id,num_songs) values (4,4);
+INSERT INTO libraries(lib_id,num_songs) values (5,2);
+INSERT INTO libraries(lib_id,num_songs) values (6,5);
+INSERT INTO libraries(lib_id,num_songs) values (7,2);
+INSERT INTO libraries(lib_id,num_songs) values (8,2);
+INSERT INTO libraries(lib_id,num_songs) values (9,2);
+INSERT INTO libraries(lib_id,num_songs) values (10,5);
+INSERT INTO libraries(lib_id,num_songs) values (11,4);
+INSERT INTO libraries(lib_id,num_songs) values (12,2);
+INSERT INTO libraries(lib_id,num_songs) values (13,2);
+INSERT INTO libraries(lib_id,num_songs) values (14,2);
+INSERT INTO libraries(lib_id,num_songs) values (15,3);
+INSERT INTO libraries(lib_id,num_songs) values (16,7);
+INSERT INTO libraries(lib_id,num_songs) values (17,8);
 
 
 
 
-INSERT INTO playlists(name,status,num_songs,libid) values ('favs','Public',6,1);
-INSERT INTO playlists(name,status,num_songs,libid) values ('cool songs','Private',4,2);
-INSERT INTO playlists(name,status,num_songs,libid) values ('vibe','Public',2,3);
-INSERT INTO playlists(name,status,num_songs,libid) values ('songs','Private',4,4);
-INSERT INTO playlists(name,status,num_songs,libid) values ('my songs','Private',2,5);
-INSERT INTO playlists(name,status,num_songs,libid) values ('pl','Public',5,6);
-INSERT INTO playlists(name,status,num_songs,libid) values ('my favorites','Public',2,7);
-INSERT INTO playlists(name,status,num_songs,libid) values ('my favs','Public',2,8);
-INSERT INTO playlists(name,status,num_songs,libid) values ('favorites','Public',2,9);
-INSERT INTO playlists(name,status,num_songs,libid) values ('love these songs','Private',5,10);
-INSERT INTO playlists(name,status,num_songs,libid) values ('yeh','Public',4,11);
-INSERT INTO playlists(name,status,num_songs,libid) values ('cool songs','Public',2,12);
-INSERT INTO playlists(name,status,num_songs,libid) values ('My Favorites','Public',2,13);
-INSERT INTO playlists(name,status,num_songs,libid) values ('playlist 33','Private',2,14);
-INSERT INTO playlists(name,status,num_songs,libid) values ('nice songs','Private',3,15);
-INSERT INTO playlists(name,status,num_songs,libid) values ('melody','Public',7,16);
-INSERT INTO playlists(name,status,num_songs,libid) values ('beats','Public',8,17);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('favs','Public',6,1);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('cool songs','Private',4,2);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('vibe','Public',2,3);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('songs','Private',4,4);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('my songs','Private',2,5);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('pl','Public',5,6);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('my favorites','Public',2,7);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('my favs','Public',2,8);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('favorites','Public',2,9);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('love these songs','Private',5,10);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('yeh','Public',4,11);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('cool songs','Public',2,12);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('My Favorites','Public',2,13);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('playlist 33','Private',2,14);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('nice songs','Private',3,15);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('melody','Public',7,16);
+INSERT INTO playlists(name,status,num_songs,lib_id) values ('beats','Public',8,17);
 
 
 
