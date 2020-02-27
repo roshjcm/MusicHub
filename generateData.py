@@ -48,17 +48,20 @@ def generateUserData(num):
 
 	df_users = pandas.DataFrame(data={"uid": uid_list, "name": name_list, "username": username_list, "country":country_list,"email":email_list, 
 		"birthday":birthday_list,"credit info":credit_info_list})
-	df_users.to_csv("./datasets/user.csv", sep=',',index=False)
+	df_users.to_csv("./datasets/users.csv", sep=',',index=False)
 
 	#Pick n users to be the artists and assign their uid to the artists.
 	artists_uid_list=[]
+	df_users= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
 	df_artists= pandas.read_csv("./datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
 	numRows=np.shape(df_artists)[0]
+	print(numRows)
 	for i in range(numRows):
-		artist_uid=df_users['uid'][randint(0,num)]
+		artist_uid=df_users['uid'][i]
 		while (artist_uid in artists_uid_list):
-			artist_uid=df_users['uid'][randint(0,num)]
-		uid_list.append(artist_uid)
+			artist_uid=df_users['uid'][i]
+		artists_uid_list.append(artist_uid)
+	print(len(artists_uid_list))
 	df_artists['uid']=artists_uid_list
 	df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
 
@@ -100,7 +103,7 @@ def updateAlbumAndSongCSV():
 	df_songs['articleID']=songsID_list
 	df_songs.to_csv('./datasets/songs.csv', index=False)
 
-def generateInsert(table,attributes):
+def generateInsert(table):
 	insert=""
 	if (table=="users"):
 		insert="INSERT INTO users(uid,name,username,country,email,dob,credit_info) values"
@@ -121,7 +124,7 @@ def generateInsert(table,attributes):
 	elif table=="shopping_carts":		
 		insert="INSERT INTO shopping_carts(order_id,total_amount,num_articles) values"
 	elif table=="Releases":
-		inser="INSERT INTO Releases(artist_id,article_id) values"
+		insert="INSERT INTO Releases(artist_id,article_id) values"
 	elif table=="BelongsTo":
 		insert="INSERT INTO BelongsTo(song_id,album_id) values"
 	elif table=="ComprisesOf":
@@ -146,9 +149,9 @@ def generateInsert(table,attributes):
 	df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
 	numRows,numCols =np.shape(df)
 	for i in range(numRows):
-		values="("+df.iat[0,i]
+		values="(\""+str(df.iat[i,0])+"\""
 		for j in range(1,numCols):
-			values=values+","+df.iat[j,i]
+			values=values+",\""+str(df.iat[i,j])+"\""
 		values=values+")"
 		print(insert,values)
 	return 1
@@ -156,8 +159,10 @@ def generateInsert(table,attributes):
 def main_menu():
 	answer=-1
 	print("Main Menu")
-	while (not(answer==1 or answer==2)):
-		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\nEnter 3 to generate insert statement for a table\n(Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+	while (not(answer==1 or answer==2 or answer==3)):
+		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\nEnter 3 to generate insert statement for a table")
+		print("PLEASE DO NOT USE OPTION 1 unless necessary as it may break all the relation tables (not updating the IDs there yet)")
+		print("Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
 		answer=int(input())
 	if (answer==1):
 		print("How many users do you want?")
