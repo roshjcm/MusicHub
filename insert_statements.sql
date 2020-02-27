@@ -1,8 +1,8 @@
 -- INSERT STATEMENTS --
 -- users: DONE
--- artists: DONE
+-- artists: DONE (need to update balance once moneyEarned is done)
 -- listeners: DONE
--- libraries: done (but no one has any songs yet)
+-- libraries: DONE
 -- playlists: DONE
 -- articles: DONE
 -- albums: DONE
@@ -128,23 +128,23 @@ INSERT INTO listeners(uid) values (185)
 
 
 
-INSERT INTO libraries(libid,num_songs) values (1,0)
-INSERT INTO libraries(libid,num_songs) values (2,0)
-INSERT INTO libraries(libid,num_songs) values (3,0)
-INSERT INTO libraries(libid,num_songs) values (4,0)
-INSERT INTO libraries(libid,num_songs) values (5,0)
-INSERT INTO libraries(libid,num_songs) values (6,0)
-INSERT INTO libraries(libid,num_songs) values (7,0)
-INSERT INTO libraries(libid,num_songs) values (8,0)
-INSERT INTO libraries(libid,num_songs) values (9,0)
-INSERT INTO libraries(libid,num_songs) values (10,0)
-INSERT INTO libraries(libid,num_songs) values (11,0)
-INSERT INTO libraries(libid,num_songs) values (12,0)
-INSERT INTO libraries(libid,num_songs) values (13,0)
-INSERT INTO libraries(libid,num_songs) values (14,0)
-INSERT INTO libraries(libid,num_songs) values (15,0)
-INSERT INTO libraries(libid,num_songs) values (16,0)
-INSERT INTO libraries(libid,num_songs) values (17,0)
+INSERT INTO libraries(libid,num_songs) values (1,6)
+INSERT INTO libraries(libid,num_songs) values (2,4)
+INSERT INTO libraries(libid,num_songs) values (3,2)
+INSERT INTO libraries(libid,num_songs) values (4,4)
+INSERT INTO libraries(libid,num_songs) values (5,2)
+INSERT INTO libraries(libid,num_songs) values (6,5)
+INSERT INTO libraries(libid,num_songs) values (7,2)
+INSERT INTO libraries(libid,num_songs) values (8,2)
+INSERT INTO libraries(libid,num_songs) values (9,2)
+INSERT INTO libraries(libid,num_songs) values (10,5)
+INSERT INTO libraries(libid,num_songs) values (11,4)
+INSERT INTO libraries(libid,num_songs) values (12,2)
+INSERT INTO libraries(libid,num_songs) values (13,2)
+INSERT INTO libraries(libid,num_songs) values (14,2)
+INSERT INTO libraries(libid,num_songs) values (15,3)
+INSERT INTO libraries(libid,num_songs) values (16,7)
+INSERT INTO libraries(libid,num_songs) values (17,8)
 
 
 -- PLAYLISTS
