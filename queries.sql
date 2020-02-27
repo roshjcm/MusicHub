@@ -25,13 +25,17 @@ WHERE a.article_id = r.article_id
 GROUP BY artist_id;
 
 --Display all the artists that realeased Rap musics and Pop musics--
-SELECT DISTINCT R.artist
-FROM artticles A, releases R
-WHERE A.article_id = R.song_id AND R.genre = "Rap"
-INTERSECT
-SELECT DISTINCT R.title
-FROM articles A, releases R
-WHERE A.article_id = R.song_id AND R.genre = "Pop";
+SELECT stage_name
+FROM artists
+WHERE EXISTS (
+	SELECT DISTINCT R.artist_id
+	FROM artticles A, releases R
+	WHERE A.article_id = R.song_id AND R.genre = "Rap"
+	INTERSECT
+	SELECT DISTINCT R.artist_id
+	ROM articles A, releases R
+	WHERE A.article_id = R.song_id AND R.genre = "Pop";
+	)
 
 --Display the Listener's order history--
 SELECT Uses.order_id
