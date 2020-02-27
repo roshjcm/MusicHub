@@ -96,9 +96,11 @@ CREATE TABLE BelongsTo (
 CREATE TABLE ComprisesOf ( 
 	lib_id INTEGER NOT NULL,
 	name VARCHAR(30),
+	song_id INTEGER NOT NULL,
 	PRIMARY KEY(lib_id, name),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
 	FOREIGN KEY(name) REFERENCES playlists
+	FOREIGN KEY(song_id) REFERENCES songs(article_id)
 );
 
 CREATE TABLE IsAddedTo ( 

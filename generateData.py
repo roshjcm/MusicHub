@@ -142,7 +142,7 @@ def generateInsert(table):
 	"INSERT INTO shopping_carts(order_id,total_amount,num_articles) values",\
 	"INSERT INTO Releases(artist_id,article_id) values",\
 	"INSERT INTO BelongsTo(song_id,album_id) values",\
-	"INSERT INTO ComprisesOf(lib_id,name) values",\
+	"INSERT INTO ComprisesOf(lib_id,name,song_id) values",\
 	"INSERT INTO IsAddedTo(article_id,lib_id) values",\
 	"INSERT INTO IsPartOf(name,lib_id) values",\
 	"INSERT INTO Contains(order_id, article_id) values",\
