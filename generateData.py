@@ -165,12 +165,25 @@ def main_menu():
 		print("Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
 		answer=int(input())
 	if (answer==1):
-		print("How many users do you want?")
-		num= int(input())
-		generateUserData(num)
+		print("WARNING: If you do this, several INSERT statements WILL NO LONGER BE VALID")
+		print("If you wish to continue, enter y. Otherwise, enter n:")
+		answer=input()
+		if answer==y:
+			print("How many users do you want?")
+			num= int(input())
+			generateUserData(num)
+		else: 
+			print("Yep, probably safer. Exiting rn.")
 	elif (answer==2):
-		generateArticleID()
-		updateAlbumAndSongCSV()
+		print("WARNING: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+		print("Several INSERT statements WILL NO LONGER BE VALID")
+		print("If you wish to continue, enter y. Otherwise, enter n:")
+		answer=input()
+		if answer=="y":
+			generateArticleID()
+			updateAlbumAndSongCSV()
+		else: 
+			print("Yep, probably safer. Exiting rn.")
 	else:
 		print("Enter table name (or type q to quit):")
 		table=input()
