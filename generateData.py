@@ -141,6 +141,8 @@ def generateInsert(table):
 		insert="INSERT INTO Creates(listener_id,lib_id,name) values"
 	elif table=="moneyEarned":
 		insert="INSERT INTO moneyEarned(artist_id,order_id,money_received) values"
+	elif table=="Has":
+		insert="INSERT INTO Has(listener_id,lib_id) values"
 	else:
 		print("Table does not exist")
 		return -1
@@ -165,38 +167,46 @@ def generateInsert(table):
 
 def main_menu():
 	answer=-1
-	print("Main Menu")
+	print("MAIN MENU")
 	while (not(answer==1 or answer==2 or answer==3)):
-		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\nEnter 3 to generate insert statement for a table")
-		print("PLEASE DO NOT USE OPTION 1 unless necessary as it may break all the relation tables (not updating the IDs there yet)")
-		print("Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+		print("Enter 1 to generate insert statement for a table\nEnter 2 for other data manipulations")
 		answer=int(input())
 	if (answer==1):
-		print("WARNING: If you do this, several INSERT statements WILL NO LONGER BE VALID")
-		print("If you wish to continue, enter y. Otherwise, enter n:")
-		answer=input()
-		if answer==y:
-			print("How many users do you want?")
-			num= int(input())
-			generateUserData(num)
-		else: 
-			print("Yep, probably safer. Exiting rn.")
-	elif (answer==2):
-		print("WARNING: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
-		print("Several INSERT statements WILL NO LONGER BE VALID")
-		print("If you wish to continue, enter y. Otherwise, enter n:")
-		answer=input()
-		if answer=="y":
-			generateArticleID()
-			updateAlbumAndSongCSV()
-		else: 
-			print("Yep, probably safer. Exiting rn.")
-	else:
 		print("Enter table name (or type q to quit):")
 		table=input()
 		if (table=="q"):
 			print("Exiting")
 		generateInsert(table)
+	elif (answer==2):
+		print("\nGENERATING DATA")
+		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\nEnter 3 to quit")
+		print("PLEASE DO NOT USE OPTION 1 unless necessary as it may break all the relation tables (not updating the IDs there yet)")
+		print("Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+		answer=int(input())
+		if (answer==1):
+			print("WARNING: If you do this, several INSERT statements WILL NO LONGER BE VALID")
+			print("If you wish to continue, enter y. Otherwise, enter n:")
+			answer=input()
+			if answer==y:
+				print("How many users do you want?")
+				num= int(input())
+				generateUserData(num)
+			else: 
+				print("Yep, probably safer. Exiting rn.")
+		elif (answer==2):
+			print("WARNING: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+			print("Several INSERT statements WILL NO LONGER BE VALID")
+			print("If you wish to continue, enter y. Otherwise, enter n:")
+			answer=input()
+			if answer=="y":
+				generateArticleID()
+				updateAlbumAndSongCSV()
+			else: 
+				print("Yep, probably safer. Exiting rn.")
+		else:
+			print("Successfull exit.")
+	else:
+		print("wrong input. Exiting.")
 
 
 
