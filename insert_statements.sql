@@ -17,7 +17,7 @@
 -- Contains: DONE
 -- Uses: DONE
 -- Creates: DONE
--- moneyEarned:
+-- moneyEarned: DONE
 -- Has: DONE
 
 -- ALL USERS
@@ -1155,6 +1155,41 @@ INSERT INTO Has(listener_id,lib_id) values (108,14)
 INSERT INTO Has(listener_id,lib_id) values (310,15)
 INSERT INTO Has(listener_id,lib_id) values (168,16)
 INSERT INTO Has(listener_id,lib_id) values (185,17)
+
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (89,0,2.75)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (246,0,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (13,1,2.85)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (329,1,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (334,2,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (216,2,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (329,3,2.85)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,3,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (329,4,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,4,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (246,5,2.2)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,5,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (27,6,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,6,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (216,7,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (334,7,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (216,8,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (145,8,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,9,3.8)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (270,9,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,10,2.05)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,10,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (145,11,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (315,11,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (145,12,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (334,12,0.95)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (145,13,0.0)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (113,13,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (270,14,1.1)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (113,14,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (113,15,3.3)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (113,15,0.55)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (113,16,3.85)
+INSERT INTO moneyEarned(artist_id,order_id,money_received) values (270,16,0.55)
 
 
 
