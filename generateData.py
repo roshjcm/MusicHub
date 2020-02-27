@@ -104,8 +104,8 @@ def updateAlbumAndSongCSV():
 	df_songs.to_csv('./datasets/songs.csv', index=False)
 
 def generateInsert(table):
-	table_list=["users","listeners","artists","albums","songs","shopping_carts","Releases","BelongsTo","ComprisesOf",\
-		"IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has"]
+	table_list=["users","listeners","artists","libraries","playlists","articles","albums","songs","shopping_carts",\
+	"Releases","BelongsTo","ComprisesOf","IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has"]
 
 	insert_list=["INSERT INTO users(uid,name,username,country,email,dob,credit_info) values",\
 	"INSERT INTO listeners(uid) values",\
@@ -216,6 +216,16 @@ def main_menu():
 
 
 
+print("Generating Credit info")
+dfu= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
+numRows=np.shape(dfu)[0]
+credit_info_list=[]
+for i in range(numRows):
+	credit_info=str(randint(1111111111111111,9999999999999999)) #16 digits credit card info
+	credit_info_list.append(credit_info)
+dfu['credit info']=credit_info_list
+dfu.to_csv('./datasets/users.csv', index=False)
+credit_info_list.append(credit_info)
 main_menu()
 
 
