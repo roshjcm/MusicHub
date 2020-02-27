@@ -1,7 +1,7 @@
 --Display the content of an Album--
-SELECT *
-FROM songs, BelongsTo
-WHERE songs.article_id = BelongsTo.song_id AND BelongsTo.album_id = "album_id_of_interest";
+SELECT articles.title, articles.genre, articles.duration
+FROM articles, BelongsTo
+WHERE articles.article_id = BelongsTo.song_id AND BelongsTo.album_id = "album_id_of_interest";
 
 --Search all the releases of specific artist--
 SELECT title
