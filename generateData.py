@@ -7,7 +7,7 @@ import pandas
 first_names=['Louise','Janna','Roshane', 'Kyra','Olive','Soraya','Tara','Misgana','Noreen', 'Bahar',\
 				'Maanav', 'Thomas', 'Sam', 'Karim', 'Max', 'Elio', 'Theo', 'Kian', 'Zhang', 'Magnus']
 last_names=['Wang','Jones','Porta','Kourilsky','Garcia','Patel','Nguyen','Meijer','Markoski',\
-			'Wilson','Williams','Rodriguez','D\'Angelo','Leone','Castelli']
+			'Wilson','Williams','Rodriguez','Angelo','Leone','Castelli']
 countries=['Canada','United States','Mexico','France','Egypt','Bolivia','Vietnam','China','Italy','Russia','England','Spain']
 email_tails=['@gmail.com','@yahoo.com','@mail.mcgill.ca']
 
