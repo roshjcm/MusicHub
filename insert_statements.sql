@@ -1,13 +1,13 @@
 -- INSERT STATEMENTS --
 -- users: DONE
--- artists: DONE (need to update balance once moneyEarned is done)
+-- artists: DONE
 -- listeners: DONE
 -- libraries: DONE
 -- playlists: DONE
 -- articles: DONE
 -- albums: DONE
 -- songs: DONE
--- shopping carts: 
+-- shopping carts: DONE
 
 -- Release: DONE
 -- BelongsTo: DONE
@@ -73,39 +73,39 @@ INSERT INTO users(uid,name,username,country,email,dob,credit_info) values (168,"
 INSERT INTO users(uid,name,username,country,email,dob,credit_info) values (185,"Max Williams","Max186","Italy","Max.Williams@gmail.com","1977-11-16",3413259233798313)
 
 -- ALL ARTISTS
-INSERT INTO artists(uid,stage_name,balance) values (89,"Zaryah",0)
-INSERT INTO artists(uid,stage_name,balance) values (13,"Emma Della",0)
-INSERT INTO artists(uid,stage_name,balance) values (334,"NMN",0)
-INSERT INTO artists(uid,stage_name,balance) values (329,"Lil Diggity",0)
-INSERT INTO artists(uid,stage_name,balance) values (246,"Alec Wood",0)
-INSERT INTO artists(uid,stage_name,balance) values (27,"Justin B",0)
-INSERT INTO artists(uid,stage_name,balance) values (216,"Dutch Dabber",0)
-INSERT INTO artists(uid,stage_name,balance) values (315,"Aya Nova",0)
-INSERT INTO artists(uid,stage_name,balance) values (145,"Purpleplum",0)
-INSERT INTO artists(uid,stage_name,balance) values (270,"Francois Delacour",0)
-INSERT INTO artists(uid,stage_name,balance) values (113,"How About Now",0)
-INSERT INTO artists(uid,stage_name,balance) values (238,"Isiah Deville",0)
-INSERT INTO artists(uid,stage_name,balance) values (387,"LEIMA",0)
-INSERT INTO artists(uid,stage_name,balance) values (236,"The Lilies",0)
-INSERT INTO artists(uid,stage_name,balance) values (146,"KM Kid",0)
-INSERT INTO artists(uid,stage_name,balance) values (358,"The Fireman",0)
-INSERT INTO artists(uid,stage_name,balance) values (124,"Michael James",0)
-INSERT INTO artists(uid,stage_name,balance) values (353,"Chitty Bang",0)
-INSERT INTO artists(uid,stage_name,balance) values (143,"Lara O'Mara",0)
-INSERT INTO artists(uid,stage_name,balance) values (335,"JP Edwards",0)
-INSERT INTO artists(uid,stage_name,balance) values (144,"Alexandre Millet",0)
-INSERT INTO artists(uid,stage_name,balance) values (173,"The Sunny Boys",0)
-INSERT INTO artists(uid,stage_name,balance) values (163,"22 Seconds to Boston",0)
-INSERT INTO artists(uid,stage_name,balance) values (171,"The Wheelies",0)
-INSERT INTO artists(uid,stage_name,balance) values (354,"No Box",0)
-INSERT INTO artists(uid,stage_name,balance) values (200,"The Kicking Eyes",0)
-INSERT INTO artists(uid,stage_name,balance) values (231,"John Williams",0)
-INSERT INTO artists(uid,stage_name,balance) values (281,"Ayden Page",0)
-INSERT INTO artists(uid,stage_name,balance) values (359,"Kicking Dolls",0)
-INSERT INTO artists(uid,stage_name,balance) values (118,"Alice In The Rain",0)
-INSERT INTO artists(uid,stage_name,balance) values (177,"Greg McMiller",0)
-INSERT INTO artists(uid,stage_name,balance) values (373,"David Olsen",0)
-INSERT INTO artists(uid,stage_name,balance) values (71,"Zephiro",0)
+INSERT INTO artists(uid,stage_name,balance) values (89,"Zaryah",2.75)
+INSERT INTO artists(uid,stage_name,balance) values (13,"Emma Della",2.85)
+INSERT INTO artists(uid,stage_name,balance) values (334,"NMN",2.85)
+INSERT INTO artists(uid,stage_name,balance) values (329,"Lil Diggity",4.75)
+INSERT INTO artists(uid,stage_name,balance) values (246,"Alec Wood",2.75)
+INSERT INTO artists(uid,stage_name,balance) values (27,"Justin B",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (216,"Dutch Dabber",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (315,"Aya Nova",11.15)
+INSERT INTO artists(uid,stage_name,balance) values (145,"Purpleplum",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (270,"Francois Delacour",2.2)
+INSERT INTO artists(uid,stage_name,balance) values (113,"How About Now",7.7)
+INSERT INTO artists(uid,stage_name,balance) values (238,"Isiah Deville",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (387,"LEIMA",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (236,"The Lilies",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (146,"KM Kid",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (358,"The Fireman",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (124,"Michael James",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (353,"Chitty Bang",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (143,"Lara O'Mara",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (335,"JP Edwards",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (144,"Alexandre Millet",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (173,"The Sunny Boys",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (163,"22 Seconds to Boston",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (171,"The Wheelies",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (354,"No Box",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (200,"The Kicking Eyes",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (231,"John Williams",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (281,"Ayden Page",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (359,"Kicking Dolls",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (118,"Alice In The Rain",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (177,"Greg McMiller",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (373,"David Olsen",0.0)
+INSERT INTO artists(uid,stage_name,balance) values (71,"Zephiro",0.0)
 
 
 INSERT INTO listeners(uid) values (107)
@@ -587,6 +587,24 @@ INSERT INTO songs(article_id,duration) values (221,"5:46")
 INSERT INTO songs(article_id,duration) values (303,"3:59")
 INSERT INTO songs(article_id,duration) values (222,"1:57")
 INSERT INTO songs(article_id,duration) values (433,"3:50")
+
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (0,3.3,7)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (1,3.8,5)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (2,0.95,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (3,3.8,5)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (4,1.9,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (5,3.15,6)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (6,0.55,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (7,0.95,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (8,0.0,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (9,4.35,6)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (10,3.0,5)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (11,0.95,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (12,0.95,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (13,0.55,3)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (14,1.65,4)
+INSERT INTO shopping_carts(order_id,total_amount,num_articles) values (15,3.85,8)
+
 
 
 
