@@ -11,9 +11,9 @@
 
 -- Release: DONE
 -- BelongsTo: DONE
--- ComprisesOf: 
+-- ComprisesOf: DONE
 -- IsAddedTo: DONE
--- IsPartOf:
+-- IsPartOf: DONE
 -- Contains: 
 -- Uses:
 -- Creates:
@@ -1056,3 +1056,97 @@ INSERT INTO Has(listener_id,lib_id) values (108,14)
 INSERT INTO Has(listener_id,lib_id) values (310,15)
 INSERT INTO Has(listener_id,lib_id) values (168,16)
 INSERT INTO Has(listener_id,lib_id) values (185,17)
+
+
+
+-- PLAYLISTS
+
+
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",1)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",2)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",3)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",4)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",5)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",6)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",7)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",8)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",9)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",10)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",11)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",12)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",13)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",14)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",15)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",16)
+INSERT INTO IsPartOf(name,lib_id) values ("My Favorites",17)
+
+
+
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",25)
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",68)
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",252)
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",21)
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",0)
+INSERT INTO ComprisesOf(lib_id,name) values (1,"My Favorites",360)
+INSERT INTO ComprisesOf(lib_id,name) values (2,"My Favorites",125)
+INSERT INTO ComprisesOf(lib_id,name) values (2,"My Favorites",446)
+INSERT INTO ComprisesOf(lib_id,name) values (2,"My Favorites",87)
+INSERT INTO ComprisesOf(lib_id,name) values (2,"My Favorites",262)
+INSERT INTO ComprisesOf(lib_id,name) values (3,"My Favorites",364)
+INSERT INTO ComprisesOf(lib_id,name) values (3,"My Favorites",409)
+INSERT INTO ComprisesOf(lib_id,name) values (4,"My Favorites",451)
+INSERT INTO ComprisesOf(lib_id,name) values (4,"My Favorites",464)
+INSERT INTO ComprisesOf(lib_id,name) values (4,"My Favorites",262)
+INSERT INTO ComprisesOf(lib_id,name) values (4,"My Favorites",416)
+INSERT INTO ComprisesOf(lib_id,name) values (5,"My Favorites",392)
+INSERT INTO ComprisesOf(lib_id,name) values (5,"My Favorites",319)
+INSERT INTO ComprisesOf(lib_id,name) values (6,"My Favorites",86)
+INSERT INTO ComprisesOf(lib_id,name) values (6,"My Favorites",360)
+INSERT INTO ComprisesOf(lib_id,name) values (6,"My Favorites",441)
+INSERT INTO ComprisesOf(lib_id,name) values (6,"My Favorites",179)
+INSERT INTO ComprisesOf(lib_id,name) values (6,"My Favorites",416)
+INSERT INTO ComprisesOf(lib_id,name) values (7,"My Favorites",198)
+INSERT INTO ComprisesOf(lib_id,name) values (7,"My Favorites",339)
+INSERT INTO ComprisesOf(lib_id,name) values (8,"My Favorites",409)
+INSERT INTO ComprisesOf(lib_id,name) values (8,"My Favorites",364)
+INSERT INTO ComprisesOf(lib_id,name) values (9,"My Favorites",219)
+INSERT INTO ComprisesOf(lib_id,name) values (9,"My Favorites",246)
+INSERT INTO ComprisesOf(lib_id,name) values (10,"My Favorites",400)
+INSERT INTO ComprisesOf(lib_id,name) values (10,"My Favorites",319)
+INSERT INTO ComprisesOf(lib_id,name) values (10,"My Favorites",416)
+INSERT INTO ComprisesOf(lib_id,name) values (10,"My Favorites",212)
+INSERT INTO ComprisesOf(lib_id,name) values (10,"My Favorites",114)
+INSERT INTO ComprisesOf(lib_id,name) values (11,"My Favorites",264)
+INSERT INTO ComprisesOf(lib_id,name) values (11,"My Favorites",286)
+INSERT INTO ComprisesOf(lib_id,name) values (11,"My Favorites",339)
+INSERT INTO ComprisesOf(lib_id,name) values (11,"My Favorites",319)
+INSERT INTO ComprisesOf(lib_id,name) values (12,"My Favorites",246)
+INSERT INTO ComprisesOf(lib_id,name) values (12,"My Favorites",416)
+INSERT INTO ComprisesOf(lib_id,name) values (13,"My Favorites",497)
+INSERT INTO ComprisesOf(lib_id,name) values (13,"My Favorites",364)
+INSERT INTO ComprisesOf(lib_id,name) values (14,"My Favorites",147)
+INSERT INTO ComprisesOf(lib_id,name) values (14,"My Favorites",482)
+INSERT INTO ComprisesOf(lib_id,name) values (15,"My Favorites",114)
+INSERT INTO ComprisesOf(lib_id,name) values (15,"My Favorites",180)
+INSERT INTO ComprisesOf(lib_id,name) values (15,"My Favorites",482)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",70)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",363)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",420)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",11)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",482)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",299)
+INSERT INTO ComprisesOf(lib_id,name) values (16,"My Favorites",217)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",88)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",60)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",431)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",7)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",229)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",289)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",217)
+INSERT INTO ComprisesOf(lib_id,name) values (17,"My Favorites",180)
+
+
+
+
+
+
