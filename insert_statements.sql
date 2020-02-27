@@ -1,9 +1,24 @@
-INSERT INTO users VALUES(12345678, 'jannalouisea', 'Canada', 'jannalouisea@gmail.com', '2020-02-21', '123456789');
-INSERT INTO users VALUES(12345678, 'maanavsund', 'Canada', 'maanax9000@gmail.com', '2020-02-21', '123456789');
-INSERT INTO users VALUES(12345678, 'louiseoyarzabal', 'Canada', 'oyarzabal.louise@gmail.com', '2020-02-21', '123456789');
-INSERT INTO users VALUES(12345678, 'roshanejochum', 'Canada', 'roshanejochum@gmail.com', '2020-02-21', '123456789');
-INSERT INTO users VALUES(12345678, 'josephdsilva', 'Canada', 'joseph.dsilva@mail.mcgill.ca', '2020-02-21', '123456789');
+-- INSERT STATEMENTS --
+-- users: DONE
+-- artists: DONE
+-- listeners: DONE
+-- libraries: done (but no one has any songs yet)
+-- playlists: done (but currently no one has a playlist)
+-- articles:
+-- albums: DONE
+-- songs: DONE
+-- shopping carts: 
 
+-- Release: DONE
+-- BelongsTo: 
+-- ComprisesOf: 
+-- IsAddedTo: 
+-- IsPartOf:
+-- Contains: 
+-- Uses:
+-- Creates:
+-- moneyEarned:
+-- Has: DONE
 
 -- ALL USERS
 INSERT INTO users(uid,name,username,country,email,dob,credit_info) values (89,"Kyra Jones","Kyr13","Spain","Kyra.Jones@yahoo.com","1952-12-1",2328808800567303)
@@ -92,6 +107,7 @@ INSERT INTO artists(uid,stage_name,balance) values (177,"Greg McMiller",0)
 INSERT INTO artists(uid,stage_name,balance) values (373,"David Olsen",0)
 INSERT INTO artists(uid,stage_name,balance) values (71,"Zephiro",0)
 
+
 INSERT INTO listeners(uid) values (107)
 INSERT INTO listeners(uid) values (69)
 INSERT INTO listeners(uid) values (395)
@@ -109,6 +125,48 @@ INSERT INTO listeners(uid) values (108)
 INSERT INTO listeners(uid) values (310)
 INSERT INTO listeners(uid) values (168)
 INSERT INTO listeners(uid) values (185)
+
+
+
+INSERT INTO libraries(libid,num_songs) values (1,0)
+INSERT INTO libraries(libid,num_songs) values (2,0)
+INSERT INTO libraries(libid,num_songs) values (3,0)
+INSERT INTO libraries(libid,num_songs) values (4,0)
+INSERT INTO libraries(libid,num_songs) values (5,0)
+INSERT INTO libraries(libid,num_songs) values (6,0)
+INSERT INTO libraries(libid,num_songs) values (7,0)
+INSERT INTO libraries(libid,num_songs) values (8,0)
+INSERT INTO libraries(libid,num_songs) values (9,0)
+INSERT INTO libraries(libid,num_songs) values (10,0)
+INSERT INTO libraries(libid,num_songs) values (11,0)
+INSERT INTO libraries(libid,num_songs) values (12,0)
+INSERT INTO libraries(libid,num_songs) values (13,0)
+INSERT INTO libraries(libid,num_songs) values (14,0)
+INSERT INTO libraries(libid,num_songs) values (15,0)
+INSERT INTO libraries(libid,num_songs) values (16,0)
+INSERT INTO libraries(libid,num_songs) values (17,0)
+
+
+
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,1)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,2)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,3)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,4)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,5)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,6)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,7)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,8)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,9)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,10)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,11)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,12)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,13)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,14)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,15)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,16)
+INSERT INTO playlists(name,status,num_songs,libid) values (nan,nan,nan,17)
+
+
 
 INSERT INTO albums(article_id,type) values (62,"LP")
 INSERT INTO albums(article_id,type) values (278,"Compilation")
@@ -527,3 +585,21 @@ INSERT INTO Releases(artist_id,article_id) values (71,303)
 INSERT INTO Releases(artist_id,article_id) values (71,222)
 INSERT INTO Releases(artist_id,article_id) values (71,433)
 INSERT INTO Releases(artist_id,article_id) values (71,188)
+
+INSERT INTO Has(listener_id,lib_id) values (107,1)
+INSERT INTO Has(listener_id,lib_id) values (69,2)
+INSERT INTO Has(listener_id,lib_id) values (395,3)
+INSERT INTO Has(listener_id,lib_id) values (38,4)
+INSERT INTO Has(listener_id,lib_id) values (323,5)
+INSERT INTO Has(listener_id,lib_id) values (368,6)
+INSERT INTO Has(listener_id,lib_id) values (12,7)
+INSERT INTO Has(listener_id,lib_id) values (164,8)
+INSERT INTO Has(listener_id,lib_id) values (365,9)
+INSERT INTO Has(listener_id,lib_id) values (179,10)
+INSERT INTO Has(listener_id,lib_id) values (320,11)
+INSERT INTO Has(listener_id,lib_id) values (253,12)
+INSERT INTO Has(listener_id,lib_id) values (34,13)
+INSERT INTO Has(listener_id,lib_id) values (108,14)
+INSERT INTO Has(listener_id,lib_id) values (310,15)
+INSERT INTO Has(listener_id,lib_id) values (168,16)
+INSERT INTO Has(listener_id,lib_id) values (185,17)
