@@ -159,7 +159,7 @@ CREATE TABLE Has(
 	PRIMARY KEY(listener_id,lib_id)
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
-)
+);
 
 
 
