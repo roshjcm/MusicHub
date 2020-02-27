@@ -143,6 +143,28 @@ def generateInsert(table):
 		insert="INSERT INTO moneyEarned(artist_id,order_id,money_received) values"
 	elif table=="Has":
 		insert="INSERT INTO Has(listener_id,lib_id) values"
+	else table=="all":
+		table_list=["users","listeners","artists","albums","songs","shopping_carts","Releases","BelongsTo","ComprisesOf",\
+		"IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has"]
+		for t in table_list:
+			path="./datasets/"+t+".csv"
+			df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
+			numRows,numCols =np.shape(df)
+			for i in range(numRows):
+				if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
+					values="(\'"+str(df.iat[i,0])+"\'"
+				elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
+					values="("+str(df.iat[i,0])
+				for j in range(1,numCols):
+					curEntry=df.iat[i,j]
+					if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
+						values=values+",\'"+str(df.iat[i,j])+"\'"
+					elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
+						values=values+","+str(df.iat[i,j])
+				values=values+");"
+				print(insert,values)
+			print("\n\n\n")
+		return 1
 	else:
 		print("Table does not exist")
 		return -1
@@ -152,16 +174,16 @@ def generateInsert(table):
 	numRows,numCols =np.shape(df)
 	for i in range(numRows):
 		if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
-			values="(\""+str(df.iat[i,0])+"\""
+			values="(\'"+str(df.iat[i,0])+"\'"
 		elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
 			values="("+str(df.iat[i,0])
 		for j in range(1,numCols):
 			curEntry=df.iat[i,j]
 			if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
-				values=values+",\""+str(df.iat[i,j])+"\""
+				values=values+",\'"+str(df.iat[i,j])+"\'"
 			elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
 				values=values+","+str(df.iat[i,j])
-		values=values+")"
+		values=values+");"
 		print(insert,values)
 	return 1
 
