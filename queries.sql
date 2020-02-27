@@ -40,7 +40,7 @@ WHERE Uses.listener_id = "listener_id_of_interest";
 
 -- Ideas for the creativity part--
 
--- find the artists who made more than 20 releases in january 2020--
+-- find the artists who made more than 10 releases in january 2020--
 
 CREATE VIEW january_selection AS
 SELECT A.article_id, R.artist_id
@@ -52,7 +52,7 @@ FROM artists
 WHERE EXISTS (	SELECT COUNT(article_id), A.uid 
 				FROM january_selection
 				GROUP BY A.uid 
-				HAVING COUNT(article_id) >20); 
+				HAVING COUNT(article_id) >10); 
 
 DROP VIEW IF EXISTS january_selection;
 
