@@ -50,11 +50,17 @@ def generateUserData(num):
 		"birthday":birthday_list,"credit info":credit_info_list})
 	df_users.to_csv("./datasets/user.csv", sep=',',index=False)
 
-	# artists_uid_list=[]
-	# df_artists= pandas.read_csv("./datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
-
-	# df_artists['uid']=artists_uid_list
-	# df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
+	#Pick n users to be the artists and assign their uid to the artists.
+	artists_uid_list=[]
+	df_artists= pandas.read_csv("./datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
+	numRows=np.shape(df_artists)[0]
+	for i in range(numRows):
+		artist_uid=df_users['uid'][randint(0,num)]
+		while (artist_uid in artists_uid_list):
+			artist_uid=df_users['uid'][randint(0,num)]
+		uid_list.append(artist_uid)
+	df_artists['uid']=artists_uid_list
+	df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
 
 
 
@@ -94,21 +100,78 @@ def updateAlbumAndSongCSV():
 	df_songs['articleID']=songsID_list
 	df_songs.to_csv('./datasets/songs.csv', index=False)
 
-# def generateInsert():
-	
+def generateInsert(table,attributes):
+	insert=""
+	if (table=="users"):
+		insert="INSERT INTO users(uid,name,username,country,email,dob,credit_info) values"
+	elif (table=="listeners"):
+		insert="INSERT INTO listeners(uid) values"
+	elif table=="artists":
+		insert="INSERT INTO artists(uid,stage_name,balance) values"
+	elif table=="libraries":
+		insert="INSERT INTO libraries(libid,num_songs) values"
+	elif table=="playlists":
+		insert="INSERT INTO playlists(name,status,num_songs,libid) values"
+	elif table=="articles":
+		insert="INSERT INTO articles(article_id,title,release_date,price,genre) values"
+	elif table=="albums":
+		insert="INSERT INTO albums(article_id,type) values"
+	elif table=="songs":
+		insert="INSERT INTO songs(article_id,duration) values"
+	elif table=="shopping_carts":		
+		insert="INSERT INTO shopping_carts(order_id,total_amount,num_articles) values"
+	elif table=="Releases":
+		inser="INSERT INTO Releases(artist_id,article_id) values"
+	elif table=="BelongsTo":
+		insert="INSERT INTO BelongsTo(song_id,album_id) values"
+	elif table=="ComprisesOf":
+		insert="INSERT INTO ComprisesOf(lib_id,name) values"
+	elif table=="IsAddedTo":
+		insert="INSERT INTO IsAddedTo(article_id,lib_id) values"
+	elif table=="IsPartOf":
+		insert="INSERT INTO IsPartOf(name,lib_id) values"
+	elif table=="Contains":
+		insert="INSERT INTO Contains(order_id, article_id) values"
+	elif table=="Uses":
+		insert="INSERT INTO Uses(listener_id,order_id) values"
+	elif table=="Creates":
+		insert="INSERT INTO Creates(listener_id,lib_id,name) values"
+	elif table=="moneyEarned":
+		insert="INSERT INTO moneyEarned(artist_id,order_id,money_received) values"
+	else:
+		print("Table does not exist")
+		return -1
+
+	path="./datasets/"+table+".csv"
+	df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
+	numRows,numCols =np.shape(df)
+	for i in range(numRows):
+		values="("+df.iat[0,i]
+		for j in range(1,numCols):
+			values=values+","+df.iat[j,i]
+		values=values+")"
+		print(insert,values)
+	return 1
+
 def main_menu():
 	answer=-1
 	print("Main Menu")
 	while (not(answer==1 or answer==2)):
-		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\n(Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
+		print("Enter 1 to generate User data \nEnter 2 to generate Article IDs\nEnter 3 to generate insert statement for a table\n(Note: Option 2 will automatically update songs.csv and albums.csv with the new matching articleIDs")
 		answer=int(input())
 	if (answer==1):
 		print("How many users do you want?")
 		num= int(input())
 		generateUserData(num)
-	else:
+	elif (answer==2):
 		generateArticleID()
 		updateAlbumAndSongCSV()
+	else:
+		print("Enter table name (or type q to quit):")
+		table=input()
+		if (table=="q"):
+			print("Exiting")
+		generateInsert(table)
 
 
 
