@@ -1,7 +1,7 @@
 --Display the content of an Album--
-SELECT *
-FROM songs, BelongsTo
-WHERE songs.article_id = BelongsTo.song_id AND BelongsTo.album_id = "album_id_of_interest";
+SELECT articles.title, articles.genre, articles.duration
+FROM articles, BelongsTo
+WHERE articles.article_id = BelongsTo.song_id AND BelongsTo.album_id = "album_id_of_interest";
 
 --Search all the releases of specific artist--
 SELECT title
@@ -24,14 +24,18 @@ WHERE a.article_id = r.article_id
 	AND a.article_id = ANY (SELECT article_id FROM Contains WHERE order_id = "orderid_of_interest")
 GROUP BY artist_id;
 
---Display all the songs from a specific artist in the Listener's Library--
-SELECT S.title
-FROM songs S, releases R
-WHERE S.article_id = R.song_id AND R.artist_id = "artist_id_of_interest"
-INTERSECT
-SELECT S.title
-FROM songs S, isAddedTo A
-WHERE S.article_id = A.article_id AND A.libid = "lib_id_of_interest";
+--Display all the artists that realeased Rap musics and Pop musics--
+SELECT stage_name
+FROM artists
+WHERE EXISTS (
+	SELECT DISTINCT R.artist_id
+	FROM artticles A, releases R
+	WHERE A.article_id = R.song_id AND R.genre = "Rap"
+	INTERSECT
+	SELECT DISTINCT R.artist_id
+	ROM articles A, releases R
+	WHERE A.article_id = R.song_id AND R.genre = "Pop";
+	)
 
 --Display the Listener's order history--
 SELECT Uses.order_id
