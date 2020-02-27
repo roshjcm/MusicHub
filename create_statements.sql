@@ -45,7 +45,6 @@ CREATE TABLE playlists(
 
 CREATE TABLE articles(
 	article_id INTEGER NOT NULL,
-	ISA_album INTEGER NOT NULL,
 	title VARCHAR(30), 
 	release_date DATE, 
 	price FLOAT (4), 
