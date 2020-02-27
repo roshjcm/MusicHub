@@ -19,6 +19,8 @@ birthday_list=[]
 credit_info_list=[]
 uid_list=[]
 
+
+# ************** Generates random user data, stores it in a csv file and picks some users to be artists ********************
 def generateUserData(num):
 	for i in range(num):
 		first=choice(first_names)
@@ -66,7 +68,7 @@ def generateUserData(num):
 	df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
 
 
-
+# ************** Generates random articleIDs ********************
 def generateArticleID():
 	# Now need to add articleID to the article.csv file
 	df_articles= pandas.read_csv("./datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
@@ -80,7 +82,7 @@ def generateArticleID():
 	df_articles['articleID']=articleID_list
 	df_articles.to_csv('./datasets/articles.csv', index=False)
 	
-
+# ************** Updates the articleIDs for the albums.csv and songs.csv ********************
 def updateAlbumAndSongCSV():
 	df_songs= pandas.read_csv("./datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
 	df_albums= pandas.read_csv("./datasets/albums.csv", index_col=False, encoding='ISO-8859-1')
@@ -103,6 +105,28 @@ def updateAlbumAndSongCSV():
 	df_songs['articleID']=songsID_list
 	df_songs.to_csv('./datasets/songs.csv', index=False)
 
+
+# ********* Helper function to print Insert Statements **********
+def helperPrintInsert(table,table_list,insert_list):
+	path="./datasets/"+table+".csv"
+	df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
+	numRows,numCols =np.shape(df)
+	for i in range(numRows):
+		if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
+			values="(\'"+str(df.iat[i,0])+"\'"
+		elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
+			values="("+str(df.iat[i,0])
+		for j in range(1,numCols):
+			curEntry=df.iat[i,j]
+			if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
+				values=values+",\'"+str(df.iat[i,j])+"\'"
+			elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
+				values=values+","+str(df.iat[i,j])
+		values=values+");"
+		print(insert_list[table_list.index(table)],values)
+
+
+# *********** Function to generate insert statements for either one specific table or all tables at once ****************
 def generateInsert(table):
 	table_list=["users","listeners","artists","libraries","playlists","articles","albums","songs","shopping_carts",\
 	"Releases","BelongsTo","ComprisesOf","IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has"]
@@ -129,47 +153,19 @@ def generateInsert(table):
 
 	if table=="all":
 		for t in table_list:
-			path="./datasets/"+t+".csv"
-			df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
-			numRows,numCols =np.shape(df)
-			for i in range(numRows):
-				if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
-					values="(\'"+str(df.iat[i,0])+"\'"
-				elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
-					values="("+str(df.iat[i,0])
-				for j in range(1,numCols):
-					curEntry=df.iat[i,j]
-					if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
-						values=values+",\'"+str(df.iat[i,j])+"\'"
-					elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
-						values=values+","+str(df.iat[i,j])
-				values=values+");"
-				print(insert_list[table_list.index(t)],values)
+			helperPrintInsert(t,table_list,insert_list)
 			print("\n\n\n")
 		return 1
 
 	elif table in table_list:
-		path="./datasets/"+table+".csv"
-		df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
-		numRows,numCols =np.shape(df)
-		for i in range(numRows):
-			if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
-				values="(\'"+str(df.iat[i,0])+"\'"
-			elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
-				values="("+str(df.iat[i,0])
-			for j in range(1,numCols):
-				curEntry=df.iat[i,j]
-				if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
-					values=values+",\'"+str(df.iat[i,j])+"\'"
-				elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
-					values=values+","+str(df.iat[i,j])
-			values=values+");"
-			print(insert_list[table_list.index(table)],values)
+		helperPrintInsert(table,table_list,insert_list)
 		return 1
 
 	else:
 		print("Table does not exist")
 		return -1
+
+
 
 def main_menu():
 	answer=-1
@@ -215,6 +211,9 @@ def main_menu():
 		print("wrong input. Exiting.")
 
 
+main_menu()
+
+
 
 # print("Generating Credit info")
 # dfu= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
@@ -226,14 +225,3 @@ def main_menu():
 # dfu['credit info']=credit_info_list
 # dfu.to_csv('./datasets/users.csv', index=False)
 # credit_info_list.append(credit_info)
-main_menu()
-
-
-	# df_songs= pandas.read_csv("./datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
-	# numRows_songs=np.shape(df_songs)[0]
-	# duration_list=[]
-	# for i in range(numRows_songs):
-	# 	duration= str(randint(0,5))+":"+str(randint(10,59))
-	# 	duration_list.append(duration)
-	# df_songs['Duration']=duration_list
-	# df_songs.to_csv('./datasets/songs.csv', index=False)
