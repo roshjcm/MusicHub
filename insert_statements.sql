@@ -4,7 +4,7 @@
 -- listeners: DONE
 -- libraries: done (but no one has any songs yet)
 -- playlists: done (but currently no one has a playlist)
--- articles:
+-- articles: DONE
 -- albums: DONE
 -- songs: DONE
 -- shopping carts: 
@@ -147,7 +147,7 @@ INSERT INTO libraries(libid,num_songs) values (16,0)
 INSERT INTO libraries(libid,num_songs) values (17,0)
 
 
-
+-- PLAYLISTS
 INSERT INTO playlists(name,status,num_songs,libid) values ("My Favorites","Public",0,1)
 INSERT INTO playlists(name,status,num_songs,libid) values ("My Favorites","Private",0,2)
 INSERT INTO playlists(name,status,num_songs,libid) values ("My Favorites","Public",0,3)
@@ -167,6 +167,8 @@ INSERT INTO playlists(name,status,num_songs,libid) values ("My Favorites","Publi
 INSERT INTO playlists(name,status,num_songs,libid) values ("My Favorites","Public",0,17)
 
 
+
+-- Articles
 INSERT INTO articles(article_id,title,release_date,price,genre) values (25,0,"Born This Way","R&B","2007-06-14",0.55)
 INSERT INTO articles(article_id,title,release_date,price,genre) values (68,0,"Part Of Me","R&B","2007-06-14",0.55)
 INSERT INTO articles(article_id,title,release_date,price,genre) values (252,0,"Sucker","R&B","2007-06-14",0.55)
@@ -376,7 +378,7 @@ INSERT INTO articles(article_id,title,release_date,price,genre) values (188,1,"S
 
 
 
-
+-- ALBUMS
 INSERT INTO albums(article_id,type) values (62,"LP")
 INSERT INTO albums(article_id,type) values (278,"Compilation")
 INSERT INTO albums(article_id,type) values (253,"Single")
