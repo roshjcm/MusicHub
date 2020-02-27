@@ -216,16 +216,16 @@ def main_menu():
 
 
 
-print("Generating Credit info")
-dfu= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
-numRows=np.shape(dfu)[0]
-credit_info_list=[]
-for i in range(numRows):
-	credit_info=str(randint(1111111111111111,9999999999999999)) #16 digits credit card info
-	credit_info_list.append(credit_info)
-dfu['credit info']=credit_info_list
-dfu.to_csv('./datasets/users.csv', index=False)
-credit_info_list.append(credit_info)
+# print("Generating Credit info")
+# dfu= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
+# numRows=np.shape(dfu)[0]
+# credit_info_list=[]
+# for i in range(numRows):
+# 	credit_info=str(randint(1111111111111111,9999999999999999)) #16 digits credit card info
+# 	credit_info_list.append(credit_info)
+# dfu['credit info']=credit_info_list
+# dfu.to_csv('./datasets/users.csv', index=False)
+# credit_info_list.append(credit_info)
 main_menu()
 
 
