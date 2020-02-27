@@ -134,9 +134,9 @@ def generateInsert(table):
 	insert_list=["INSERT INTO users(uid,name,username,country,email,dob,credit_info) values",\
 	"INSERT INTO listeners(uid) values",\
 	"INSERT INTO artists(uid,stage_name,balance) values",\
-	"INSERT INTO libraries(libid,num_songs) values",\
-	"INSERT INTO playlists(name,status,num_songs,libid) values",\
-	"INSERT INTO articles(article_id,title,release_date,price,genre) values",\
+	"INSERT INTO libraries(lib_id,num_songs) values",\
+	"INSERT INTO playlists(name,status,num_songs,lib_id) values",\
+	"INSERT INTO articles(article_id,title,genre,release_date,price) values",\
 	"INSERT INTO albums(article_id,type) values",\
 	"INSERT INTO songs(article_id,duration) values",\
 	"INSERT INTO shopping_carts(order_id,total_amount,num_articles) values",\
