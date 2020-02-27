@@ -149,9 +149,16 @@ def generateInsert(table):
 	df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
 	numRows,numCols =np.shape(df)
 	for i in range(numRows):
-		values="(\""+str(df.iat[i,0])+"\""
+		if (pandas.api.types.is_string_dtype(df.iloc[:,0])):
+			values="(\""+str(df.iat[i,0])+"\""
+		elif (pandas.api.types.is_numeric_dtype(df.iloc[:,0])):
+			values="("+str(df.iat[i,0])
 		for j in range(1,numCols):
-			values=values+",\""+str(df.iat[i,j])+"\""
+			curEntry=df.iat[i,j]
+			if (pandas.api.types.is_string_dtype(df.iloc[:,j])):
+				values=values+",\""+str(df.iat[i,j])+"\""
+			elif (pandas.api.types.is_numeric_dtype(df.iloc[:,j])):
+				values=values+","+str(df.iat[i,j])
 		values=values+")"
 		print(insert,values)
 	return 1
