@@ -6,7 +6,7 @@ CREATE TABLE users (
 	name VARCHAR(30)
 	username VARCHAR(20),
 	country VARCHAR(15),
-	email VARCHAR(25), 
+	email VARCHAR(35), 
 	dob DATE, 
 	credit_info VARCHAR(30),
 	PRIMARY KEY(uid)
@@ -22,7 +22,7 @@ CREATE TABLE listeners (
 
 CREATE TABLE artists (
 	uid INTEGER NOT NULL,
-	stage_name VARCHAR (10),
+	stage_name VARCHAR (20),
 	balance FLOAT(7),
 	PRIMARY KEY(uid),
 	FOREIGN KEY(uid) REFERENCES users(uid)
@@ -45,7 +45,7 @@ CREATE TABLE playlists(
 
 CREATE TABLE articles(
 	article_id INTEGER NOT NULL,
-	title VARCHAR(30), 
+	title VARCHAR(50), 
 	release_date DATE, 
 	price FLOAT (4), 
 	genre VARCHAR (30),
@@ -68,7 +68,7 @@ CREATE TABLE songs(
 
 CREATE TABLE shopping_carts(
 	order_id INTEGER NOT NULL, 
-	total_amount FLOAT (4),
+	total_amount FLOAT (5),
 	num_articles INT,
 	PRIMARY KEY (order_id)
 );
