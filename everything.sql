@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS Has CASCADE;
 -- ************* ENTITY SETS ************* --
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
-	name VARCHAR(30)
+	name VARCHAR(30),
 	username VARCHAR(20),
 	country VARCHAR(15),
 	email VARCHAR(35), 
@@ -126,7 +126,7 @@ CREATE TABLE ComprisesOf (
 	song_id INTEGER NOT NULL,
 	PRIMARY KEY(lib_id, name, song_id),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
-	FOREIGN KEY(name) REFERENCES playlists
+	FOREIGN KEY(name) REFERENCES playlists,
 	FOREIGN KEY(song_id) REFERENCES songs(article_id)
 );
 
@@ -183,8 +183,8 @@ CREATE TABLE moneyEarned (
 
 CREATE TABLE Has(
 	listener_id INTEGER NOT NULL,
-	lib_id INTER NOT NULL,
-	PRIMARY KEY(listener_id,lib_id)
+	lib_id INTEGER NOT NULL,
+	PRIMARY KEY(listener_id,lib_id),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
 );
