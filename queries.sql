@@ -43,6 +43,25 @@ SELECT Uses.order_id
 FROM Uses
 WHERE Uses.listener_id = "listener_id_of_interest";
 
+
+-- Display the listeners that have spent the most money buying songs and albums --
+SELECT uses.listener_id, total_amount
+FROM uses, shopping_carts, listeners
+WHERE shopping_carts.order_id = uses.order_id AND uses.listener_id = listeners.uid
+ORDER BY total_amount DESC;
+
+
+
+-- Display the most frequently bought articles on the platform --
+SELECT articles.title, COUNT(contains.article_id) AS times_bought, SUM(price)
+FROM articles, contains, shopping_carts
+WHERE articles.article_id = contains.article_id AND shopping_carts.order_id = contains.order_id
+GROUP BY articles.title
+ORDER BY COUNT(articles.article_id) DESC;
+
+
+
+
 -- Ideas for the creativity part--
 
 -- find the artists who made more than 10 releases in january 2020--
@@ -60,5 +79,11 @@ WHERE EXISTS (	SELECT COUNT(article_id), A.uid
 				HAVING COUNT(article_id) >10); 
 
 DROP VIEW IF EXISTS january_selection;
+
+
+
+
+
+
 
 
