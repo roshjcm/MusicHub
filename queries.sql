@@ -15,7 +15,7 @@ WHERE u.order_id = s.order_id AND u.listener_id = l.uid;
 -- List all artists in ascending order by stage name(browsing)
 SELECT DISTINCT a.stage_name, m.genre
 FROM artists a, releases r, articles m
-WHERE r.artist_id = a.uid AND m.artist_id = r.article_id
+WHERE r.artist_id = a.uid AND r.article_id = m.article_id
 ORDER BY a.stage_name ASC;
 
 
