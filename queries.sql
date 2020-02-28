@@ -24,18 +24,19 @@ WHERE a.article_id = r.article_id
 	AND a.article_id = ANY (SELECT article_id FROM Contains WHERE order_id = "orderid_of_interest")
 GROUP BY artist_id;
 
---Display all the artists that realeased Rap musics and Pop musics--
+--Display all the artists that realeased R&B music--
 SELECT stage_name
 FROM artists
 WHERE EXISTS (
 	SELECT DISTINCT R.artist_id
-	FROM artticles A, releases R
-	WHERE A.article_id = R.song_id AND R.genre = "Rap"
-	INTERSECT
+	FROM articles A, releases R
+	WHERE A.article_id = R.article_id AND A.genre = 'R&B');
+
+/*	INTERSECT
 	SELECT DISTINCT R.artist_id
-	ROM articles A, releases R
-	WHERE A.article_id = R.song_id AND R.genre = "Pop";
-	)
+	FROM articles A, releases R
+	WHERE A.article_id = R.article_id AND A.genre = 'Pop'
+	);*/
 
 --Display the Listener's order history--
 SELECT Uses.order_id
