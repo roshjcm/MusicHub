@@ -50,7 +50,7 @@ WHERE Uses.listener_id = "listener_id_of_interest";
 CREATE VIEW january_selection AS
 SELECT A.article_id, R.artist_id
 FROM Releases R, articles A
-WHERE R.article_id = A.article_id AND 2020-01-01 <= A.release_date < 2020-02-01;
+WHERE R.article_id = A.article_id AND A.release_date BETWEEN 2020-01-01 AND 2020-02-01;
 
 SELECT artists.stage_name
 FROM artists
