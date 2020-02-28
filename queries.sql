@@ -2,7 +2,7 @@
 --Display all the artists that realeased R&B music--
 SELECT stage_name
 FROM artists
-WHERE EXISTS (
+WHERE uid = ANY (
 	SELECT DISTINCT R.artist_id
 	FROM articles A, releases R
 	WHERE A.article_id = R.article_id AND A.genre = 'R&B');
