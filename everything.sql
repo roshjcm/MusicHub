@@ -1410,23 +1410,23 @@ INSERT INTO Contains(order_id, article_id) values (16,180);
 
 
 
-INSERT INTO Uses(listener_id,order_id) values (0,107);
-INSERT INTO Uses(listener_id,order_id) values (1,69);
-INSERT INTO Uses(listener_id,order_id) values (2,395);
-INSERT INTO Uses(listener_id,order_id) values (3,38);
-INSERT INTO Uses(listener_id,order_id) values (4,323);
-INSERT INTO Uses(listener_id,order_id) values (5,368);
-INSERT INTO Uses(listener_id,order_id) values (6,12);
-INSERT INTO Uses(listener_id,order_id) values (7,164);
-INSERT INTO Uses(listener_id,order_id) values (8,365);
-INSERT INTO Uses(listener_id,order_id) values (9,179);
-INSERT INTO Uses(listener_id,order_id) values (10,320);
-INSERT INTO Uses(listener_id,order_id) values (11,253);
-INSERT INTO Uses(listener_id,order_id) values (12,34);
-INSERT INTO Uses(listener_id,order_id) values (13,108);
-INSERT INTO Uses(listener_id,order_id) values (14,310);
-INSERT INTO Uses(listener_id,order_id) values (15,168);
-INSERT INTO Uses(listener_id,order_id) values (16,185);
+INSERT INTO Uses(order_id,listener_id) values (0,107);
+INSERT INTO Uses(order_id,listener_id) values (1,69);
+INSERT INTO Uses(order_id,listener_id) values (2,395);
+INSERT INTO Uses(order_id,listener_id) values (3,38);
+INSERT INTO Uses(order_id,listener_id) values (4,323);
+INSERT INTO Uses(order_id,listener_id) values (5,368);
+INSERT INTO Uses(order_id,listener_id) values (6,12);
+INSERT INTO Uses(order_id,listener_id) values (7,164);
+INSERT INTO Uses(order_id,listener_id) values (8,365);
+INSERT INTO Uses(order_id,listener_id) values (9,179);
+INSERT INTO Uses(order_id,listener_id) values (10,320);
+INSERT INTO Uses(order_id,listener_id) values (11,253);
+INSERT INTO Uses(order_id,listener_id) values (12,34);
+INSERT INTO Uses(order_id,listener_id) values (13,108);
+INSERT INTO Uses(order_id,listener_id) values (14,310);
+INSERT INTO Uses(order_id,listener_id) values (15,168);
+INSERT INTO Uses(order_id,listener_id) values (16,185);
 
 
 
