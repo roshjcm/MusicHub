@@ -1,24 +1,7 @@
--- INSERT STATEMENTS --
--- users: DONE
--- artists: DONE
--- listeners: DONE
--- libraries: DONE
--- playlists: DONE
--- articles: DONE
--- albums: DONE
--- songs: DONE
--- shopping carts: DONE
 
--- Release: DONE
--- BelongsTo: DONE
--- ComprisesOf: DONE
--- IsAddedTo: DONE
--- IsPartOf: DONE
--- Contains: DONE
--- Uses: DONE
--- Creates: DONE
--- moneyEarned: DONE
--- Has: DONE
+-- ************* Insert statements ************* --
+
+
 
 INSERT INTO users(uid,name,username,country,email,dob,credit_info) values (89,'Kyra Jones','Kyr13','Spain','Kyra.Jones@yahoo.com','1952-12-01',2492713153623526);
 INSERT INTO users(uid,name,username,country,email,dob,credit_info) values (13,'Maanav Patel','Maa92','United States','Maanav.Patel@mail.mcgill.ca','1974-07-14',6557895804602079);
@@ -380,7 +363,6 @@ INSERT INTO articles(article_id,title,genre,release_date,price) values (303,'Don
 INSERT INTO articles(article_id,title,genre,release_date,price) values (222,'Sideways','Folk','2013-04-10',0.55);
 INSERT INTO articles(article_id,title,genre,release_date,price) values (433,'Come With Me Now','Folk','2013-04-10',0.55);
 INSERT INTO articles(article_id,title,genre,release_date,price) values (188,'Sideways','Folk','2013-04-10',1.65);
-
 
 
 
@@ -1048,85 +1030,85 @@ INSERT INTO ComprisesOf(lib_id,name,song_id) values (17,'beats',180);
 
 
 
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,25);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,68);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,252);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,21);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,0);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,62);
-INSERT INTO IsAddedTo(article_id,lib_id) values (1,360);
-INSERT INTO IsAddedTo(article_id,lib_id) values (2,125);
-INSERT INTO IsAddedTo(article_id,lib_id) values (2,446);
-INSERT INTO IsAddedTo(article_id,lib_id) values (2,87);
-INSERT INTO IsAddedTo(article_id,lib_id) values (2,278);
-INSERT INTO IsAddedTo(article_id,lib_id) values (2,262);
-INSERT INTO IsAddedTo(article_id,lib_id) values (3,364);
-INSERT INTO IsAddedTo(article_id,lib_id) values (3,253);
-INSERT INTO IsAddedTo(article_id,lib_id) values (3,409);
-INSERT INTO IsAddedTo(article_id,lib_id) values (4,451);
-INSERT INTO IsAddedTo(article_id,lib_id) values (4,464);
-INSERT INTO IsAddedTo(article_id,lib_id) values (4,262);
-INSERT INTO IsAddedTo(article_id,lib_id) values (4,357);
-INSERT INTO IsAddedTo(article_id,lib_id) values (4,416);
-INSERT INTO IsAddedTo(article_id,lib_id) values (5,392);
-INSERT INTO IsAddedTo(article_id,lib_id) values (5,71);
-INSERT INTO IsAddedTo(article_id,lib_id) values (5,319);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,86);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,360);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,441);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,179);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,351);
-INSERT INTO IsAddedTo(article_id,lib_id) values (6,416);
-INSERT INTO IsAddedTo(article_id,lib_id) values (7,198);
-INSERT INTO IsAddedTo(article_id,lib_id) values (7,202);
-INSERT INTO IsAddedTo(article_id,lib_id) values (7,339);
-INSERT INTO IsAddedTo(article_id,lib_id) values (8,409);
-INSERT INTO IsAddedTo(article_id,lib_id) values (8,417);
-INSERT INTO IsAddedTo(article_id,lib_id) values (8,364);
-INSERT INTO IsAddedTo(article_id,lib_id) values (9,219);
-INSERT INTO IsAddedTo(article_id,lib_id) values (9,74);
-INSERT INTO IsAddedTo(article_id,lib_id) values (9,246);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,400);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,319);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,416);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,212);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,327);
-INSERT INTO IsAddedTo(article_id,lib_id) values (10,114);
-INSERT INTO IsAddedTo(article_id,lib_id) values (11,264);
-INSERT INTO IsAddedTo(article_id,lib_id) values (11,286);
-INSERT INTO IsAddedTo(article_id,lib_id) values (11,339);
-INSERT INTO IsAddedTo(article_id,lib_id) values (11,204);
-INSERT INTO IsAddedTo(article_id,lib_id) values (11,319);
-INSERT INTO IsAddedTo(article_id,lib_id) values (12,246);
-INSERT INTO IsAddedTo(article_id,lib_id) values (12,248);
-INSERT INTO IsAddedTo(article_id,lib_id) values (12,416);
-INSERT INTO IsAddedTo(article_id,lib_id) values (13,497);
-INSERT INTO IsAddedTo(article_id,lib_id) values (13,112);
-INSERT INTO IsAddedTo(article_id,lib_id) values (13,364);
-INSERT INTO IsAddedTo(article_id,lib_id) values (14,147);
-INSERT INTO IsAddedTo(article_id,lib_id) values (14,193);
-INSERT INTO IsAddedTo(article_id,lib_id) values (14,482);
-INSERT INTO IsAddedTo(article_id,lib_id) values (15,114);
-INSERT INTO IsAddedTo(article_id,lib_id) values (15,180);
-INSERT INTO IsAddedTo(article_id,lib_id) values (15,247);
-INSERT INTO IsAddedTo(article_id,lib_id) values (15,482);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,70);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,363);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,420);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,11);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,482);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,299);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,24);
-INSERT INTO IsAddedTo(article_id,lib_id) values (16,217);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,88);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,60);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,431);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,7);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,229);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,289);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,217);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,166);
-INSERT INTO IsAddedTo(article_id,lib_id) values (17,180);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,25);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,68);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,252);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,21);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,0);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,62);
+INSERT INTO IsAddedTo(lib_id,article_id) values (1,360);
+INSERT INTO IsAddedTo(lib_id,article_id) values (2,125);
+INSERT INTO IsAddedTo(lib_id,article_id) values (2,446);
+INSERT INTO IsAddedTo(lib_id,article_id) values (2,87);
+INSERT INTO IsAddedTo(lib_id,article_id) values (2,278);
+INSERT INTO IsAddedTo(lib_id,article_id) values (2,262);
+INSERT INTO IsAddedTo(lib_id,article_id) values (3,364);
+INSERT INTO IsAddedTo(lib_id,article_id) values (3,253);
+INSERT INTO IsAddedTo(lib_id,article_id) values (3,409);
+INSERT INTO IsAddedTo(lib_id,article_id) values (4,451);
+INSERT INTO IsAddedTo(lib_id,article_id) values (4,464);
+INSERT INTO IsAddedTo(lib_id,article_id) values (4,262);
+INSERT INTO IsAddedTo(lib_id,article_id) values (4,357);
+INSERT INTO IsAddedTo(lib_id,article_id) values (4,416);
+INSERT INTO IsAddedTo(lib_id,article_id) values (5,392);
+INSERT INTO IsAddedTo(lib_id,article_id) values (5,71);
+INSERT INTO IsAddedTo(lib_id,article_id) values (5,319);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,86);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,360);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,441);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,179);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,351);
+INSERT INTO IsAddedTo(lib_id,article_id) values (6,416);
+INSERT INTO IsAddedTo(lib_id,article_id) values (7,198);
+INSERT INTO IsAddedTo(lib_id,article_id) values (7,202);
+INSERT INTO IsAddedTo(lib_id,article_id) values (7,339);
+INSERT INTO IsAddedTo(lib_id,article_id) values (8,409);
+INSERT INTO IsAddedTo(lib_id,article_id) values (8,417);
+INSERT INTO IsAddedTo(lib_id,article_id) values (8,364);
+INSERT INTO IsAddedTo(lib_id,article_id) values (9,219);
+INSERT INTO IsAddedTo(lib_id,article_id) values (9,74);
+INSERT INTO IsAddedTo(lib_id,article_id) values (9,246);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,400);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,319);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,416);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,212);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,327);
+INSERT INTO IsAddedTo(lib_id,article_id) values (10,114);
+INSERT INTO IsAddedTo(lib_id,article_id) values (11,264);
+INSERT INTO IsAddedTo(lib_id,article_id) values (11,286);
+INSERT INTO IsAddedTo(lib_id,article_id) values (11,339);
+INSERT INTO IsAddedTo(lib_id,article_id) values (11,204);
+INSERT INTO IsAddedTo(lib_id,article_id) values (11,319);
+INSERT INTO IsAddedTo(lib_id,article_id) values (12,246);
+INSERT INTO IsAddedTo(lib_id,article_id) values (12,248);
+INSERT INTO IsAddedTo(lib_id,article_id) values (12,416);
+INSERT INTO IsAddedTo(lib_id,article_id) values (13,497);
+INSERT INTO IsAddedTo(lib_id,article_id) values (13,112);
+INSERT INTO IsAddedTo(lib_id,article_id) values (13,364);
+INSERT INTO IsAddedTo(lib_id,article_id) values (14,147);
+INSERT INTO IsAddedTo(lib_id,article_id) values (14,193);
+INSERT INTO IsAddedTo(lib_id,article_id) values (14,482);
+INSERT INTO IsAddedTo(lib_id,article_id) values (15,114);
+INSERT INTO IsAddedTo(lib_id,article_id) values (15,180);
+INSERT INTO IsAddedTo(lib_id,article_id) values (15,247);
+INSERT INTO IsAddedTo(lib_id,article_id) values (15,482);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,70);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,363);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,420);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,11);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,482);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,299);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,24);
+INSERT INTO IsAddedTo(lib_id,article_id) values (16,217);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,88);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,60);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,431);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,7);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,229);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,289);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,217);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,166);
+INSERT INTO IsAddedTo(lib_id,article_id) values (17,180);
 
 
 
@@ -1235,23 +1217,23 @@ INSERT INTO Contains(order_id, article_id) values (16,180);
 
 
 
-INSERT INTO Uses(listener_id,order_id) values (0,107);
-INSERT INTO Uses(listener_id,order_id) values (1,69);
-INSERT INTO Uses(listener_id,order_id) values (2,395);
-INSERT INTO Uses(listener_id,order_id) values (3,38);
-INSERT INTO Uses(listener_id,order_id) values (4,323);
-INSERT INTO Uses(listener_id,order_id) values (5,368);
-INSERT INTO Uses(listener_id,order_id) values (6,12);
-INSERT INTO Uses(listener_id,order_id) values (7,164);
-INSERT INTO Uses(listener_id,order_id) values (8,365);
-INSERT INTO Uses(listener_id,order_id) values (9,179);
-INSERT INTO Uses(listener_id,order_id) values (10,320);
-INSERT INTO Uses(listener_id,order_id) values (11,253);
-INSERT INTO Uses(listener_id,order_id) values (12,34);
-INSERT INTO Uses(listener_id,order_id) values (13,108);
-INSERT INTO Uses(listener_id,order_id) values (14,310);
-INSERT INTO Uses(listener_id,order_id) values (15,168);
-INSERT INTO Uses(listener_id,order_id) values (16,185);
+INSERT INTO Uses(order_id,listener_id) values (0,107);
+INSERT INTO Uses(order_id,listener_id) values (1,69);
+INSERT INTO Uses(order_id,listener_id) values (2,395);
+INSERT INTO Uses(order_id,listener_id) values (3,38);
+INSERT INTO Uses(order_id,listener_id) values (4,323);
+INSERT INTO Uses(order_id,listener_id) values (5,368);
+INSERT INTO Uses(order_id,listener_id) values (6,12);
+INSERT INTO Uses(order_id,listener_id) values (7,164);
+INSERT INTO Uses(order_id,listener_id) values (8,365);
+INSERT INTO Uses(order_id,listener_id) values (9,179);
+INSERT INTO Uses(order_id,listener_id) values (10,320);
+INSERT INTO Uses(order_id,listener_id) values (11,253);
+INSERT INTO Uses(order_id,listener_id) values (12,34);
+INSERT INTO Uses(order_id,listener_id) values (13,108);
+INSERT INTO Uses(order_id,listener_id) values (14,310);
+INSERT INTO Uses(order_id,listener_id) values (15,168);
+INSERT INTO Uses(order_id,listener_id) values (16,185);
 
 
 
