@@ -143,7 +143,7 @@ def generateInsert(table):
 	"INSERT INTO Releases(artist_id,article_id) values",\
 	"INSERT INTO BelongsTo(song_id,album_id) values",\
 	"INSERT INTO ComprisesOf(lib_id,name,song_id) values",\
-	"INSERT INTO IsAddedTo(article_id,lib_id) values",\
+	"INSERT INTO IsAddedTo(lib_id,article_id) values",\
 	"INSERT INTO IsPartOf(name,lib_id) values",\
 	"INSERT INTO Contains(order_id, article_id) values",\
 	"INSERT INTO Uses(listener_id,order_id) values",\
