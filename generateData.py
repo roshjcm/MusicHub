@@ -129,7 +129,7 @@ def helperPrintInsert(table,table_list,insert_list):
 # *********** Function to generate insert statements for either one specific table or all tables at once ****************
 def generateInsert(table):
 	table_list=["users","listeners","artists","libraries","playlists","articles","albums","songs","shopping_carts",\
-	"Releases","BelongsTo","ComprisesOf","IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has"]
+	"Releases","BelongsTo","ComprisesOf","IsAddedTo","IsPartOf","Contains","Uses","Creates","moneyEarned","Has","dummies"]
 
 	insert_list=["INSERT INTO users(uid,name,username,country,email,dob,credit_info) values",\
 	"INSERT INTO listeners(uid) values",\
@@ -149,7 +149,8 @@ def generateInsert(table):
 	"INSERT INTO Uses(listener_id,order_id) values",\
 	"INSERT INTO Creates(listener_id,lib_id,name) values",\
 	"INSERT INTO moneyEarned(artist_id,order_id,money_received) values",\
-	"INSERT INTO Has(listener_id,lib_id) values"]
+	"INSERT INTO Has(listener_id,lib_id) values",\
+	"INSERT INTO users(uid,name,username,country,email,dob,credit_info) values"]
 
 	if table=="all":
 		for t in table_list:
