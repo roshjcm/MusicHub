@@ -22,3 +22,9 @@ WHERE balance = 0 AND
 	uid IN (SELECT a.uid 
 		FROM users u, artists a
 		WHERE u.dob> '1995-02-28' AND u.uid = a.uid);
+
+--Indicates all the new users for future reference, (reduction, promotion...) add a * in their username if they don'y have any songs yet in their libraries--
+UPDATE users
+SET username = CONCAT('*', username)
+FROM has h, libraries l
+WHERE users.uid = h.listener_id AND h.lib_id = l.lib_id AND l.num_songs = 0;
