@@ -1,13 +1,24 @@
 
 
 
-/* songs that are also albums (singles) */
+-- create view of the frequency of each genre for all articles (albums and songs) --
+
+CREATE VIEW GenreFrequency AS
+SELECT genre, COUNT(articles.genre)
+FROM articles
+GROUP BY genre
+ORDER BY COUNT(articles.genre) DESC;
 
 
-CREATE VIEW singles ()AS
-SELECT * 
-FROM albums article
-WHERE albums.type='single';
+-- create view of the countries that listeners are from in descending order --
+
+CREATE VIEW TopCountries AS
+SELECT country, COUNT(users.uid)
+FROM users, listeners
+WHERE users.uid = listeners.uid
+GROUP BY country
+ORDER BY COUNT(users.uid) DESC;
+
 
 -- create view of the top 10 artists so far--
 

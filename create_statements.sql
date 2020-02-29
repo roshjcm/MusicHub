@@ -1,6 +1,6 @@
 
-
 -- ************* ENTITY SETS ************* --
+
 CREATE TABLE users (
 	uid INTEGER NOT NULL,
 	name VARCHAR(30),
@@ -39,6 +39,7 @@ CREATE TABLE playlists(
 	name VARCHAR(30),
 	status VARCHAR(10),
 	num_songs INT,
+	lib_id INTEGER NOT NULL,
 	PRIMARY KEY(name),
 	FOREIGN KEY(lib_id) REFERENCES libraries
 );
@@ -142,7 +143,7 @@ CREATE TABLE Creates (
 	PRIMARY KEY(listener_id, lib_id, name),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
 	FOREIGN KEY(lib_id) REFERENCES libraries,
-	FOREIGN KEY(name) REFERENCES playlist
+	FOREIGN KEY(name) REFERENCES playlists(name)
 );
 
 CREATE TABLE moneyEarned ( 
@@ -159,11 +160,6 @@ CREATE TABLE Has(
 	lib_id INTEGER NOT NULL,
 	PRIMARY KEY(listener_id,lib_id),
 	FOREIGN KEY(listener_id) REFERENCES listeners(uid),
-	FOREIGN KEY(lib_id) REFERENCES libraries,
+	FOREIGN KEY(lib_id) REFERENCES libraries
 );
-
-
-
-
-
 
