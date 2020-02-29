@@ -14,4 +14,11 @@ UPDATE shopping_carts
 SET total_amount = total_amount*0.9
 WHERE total_amount > 3.50;
 
---
+-- Give a $3 gift to all artist younger than 25 who haven't made any revenue yet--
+
+UPDATE artists
+SET balance = 3
+WHERE balance = 0 AND
+	uid IN (SELECT a.uid 
+		FROM users u, artists a
+		WHERE u.dob> '1995-02-28' AND u.uid = a.uid);
