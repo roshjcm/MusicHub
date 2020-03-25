@@ -50,12 +50,12 @@ def generateUserData(num):
 
 	df_users = pandas.DataFrame(data={"uid": uid_list, "name": name_list, "username": username_list, "country":country_list,"email":email_list, 
 		"birthday":birthday_list,"credit info":credit_info_list})
-	df_users.to_csv("./datasets/users.csv", sep=',',index=False)
+	df_users.to_csv("../datasets/users.csv", sep=',',index=False)
 
 	#Pick n users to be the artists and assign their uid to the artists.
 	artists_uid_list=[]
-	df_users= pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
-	df_artists= pandas.read_csv("./datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
+	df_users= pandas.read_csv("../datasets/users.csv", index_col=False, encoding='ISO-8859-1')
+	df_artists= pandas.read_csv("../datasets/artists.csv", index_col=False, encoding='ISO-8859-1')
 	numRows=np.shape(df_artists)[0]
 	print(numRows)
 	for i in range(numRows):
@@ -65,13 +65,13 @@ def generateUserData(num):
 		artists_uid_list.append(artist_uid)
 	print(len(artists_uid_list))
 	df_artists['uid']=artists_uid_list
-	df_artists.to_csv("./datasets/artists.csv", sep=',',index=False)
+	df_artists.to_csv("../datasets/artists.csv", sep=',',index=False)
 
 
 # ************** Generates random articleIDs ********************
 def generateArticleID():
 	# Now need to add articleID to the article.csv file
-	df_articles= pandas.read_csv("./datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
+	df_articles= pandas.read_csv("../datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
 	numRows=np.shape(df_articles)[0]
 	articleID_list=[]
 	for i in range(numRows):
@@ -80,13 +80,13 @@ def generateArticleID():
 			articleID=randint(0,500)
 		articleID_list.append(articleID)
 	df_articles['articleID']=articleID_list
-	df_articles.to_csv('./datasets/articles.csv', index=False)
+	df_articles.to_csv('../datasets/articles.csv', index=False)
 	
 # ************** Updates the articleIDs for the albums.csv and songs.csv ********************
 def updateAlbumAndSongCSV():
-	df_songs= pandas.read_csv("./datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
-	df_albums= pandas.read_csv("./datasets/albums.csv", index_col=False, encoding='ISO-8859-1')
-	df_articles= pandas.read_csv("./datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
+	df_songs= pandas.read_csv("../datasets/songs.csv", index_col=False, encoding='ISO-8859-1')
+	df_albums= pandas.read_csv("../datasets/albums.csv", index_col=False, encoding='ISO-8859-1')
+	df_articles= pandas.read_csv("../datasets/articles.csv", index_col=False, encoding='ISO-8859-1')
 
 	numRows_art=np.shape(df_articles)[0]
 
@@ -101,14 +101,14 @@ def updateAlbumAndSongCSV():
 			songID=df_articles['articleID'][i]
 			songsID_list.append(songID)
 	df_albums['articleID']=albumID_list
-	df_albums.to_csv('./datasets/albums.csv', index=False)
+	df_albums.to_csv('../datasets/albums.csv', index=False)
 	df_songs['articleID']=songsID_list
-	df_songs.to_csv('./datasets/songs.csv', index=False)
+	df_songs.to_csv('../datasets/songs.csv', index=False)
 
 
 # ********* Helper function to print Insert Statements **********
 def helperPrintInsert(table,table_list,insert_list):
-	path="./datasets/"+table+".csv"
+	path="../datasets/"+table+".csv"
 	df=pandas.read_csv(path, index_col=False, encoding='ISO-8859-1')
 	numRows,numCols =np.shape(df)
 	for i in range(numRows):

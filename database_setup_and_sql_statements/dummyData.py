@@ -20,7 +20,7 @@ credit_info_list=[]
 uid_list=[]
 
 uid_list_prev=[]
-df=pandas.read_csv("./datasets/users.csv", index_col=False, encoding='ISO-8859-1')
+df=pandas.read_csv("../datasets/users.csv", index_col=False, encoding='ISO-8859-1')
 numRows =np.shape(df)[0]
 for i in range(numRows):
 	uid_list_prev.append(df['uid'][i])
@@ -56,9 +56,9 @@ def generateUserData(num):
 
 	df_dummies = pandas.DataFrame(data={"uid": uid_list, "name": name_list, "username": username_list, "country":country_list,"email":email_list, 
 		"birthday":birthday_list,"credit info":credit_info_list})
-	df_dummies.to_csv("./datasets/dummies.csv", sep=',',index=False)
+	df_dummies.to_csv("../datasets/dummies.csv", sep=',',index=False)
 
-df_dummies=pandas.read_csv("./datasets/dummies.csv", index_col=False, encoding='ISO-8859-1')
+df_dummies=pandas.read_csv("../datasets/dummies.csv", index_col=False, encoding='ISO-8859-1')
 numRows =np.shape(df_dummies)[0]
 for i in range(numRows):
 	print(df_dummies['uid'][i])
