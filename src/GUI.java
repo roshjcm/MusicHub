@@ -42,11 +42,6 @@ public class GUI implements ActionListener {
 		
 	}
 
-
-	public static void main(String[] args) { 
-		new GUI();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		count++;

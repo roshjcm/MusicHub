@@ -28,10 +28,10 @@ public class Driver {
 	
 		 
 		try {
-		//	con = openCon(username, pass);			// open connection to database
+			con = openCon(username, pass);			// open connection to database
 		
 			
-			GUI gui = new GUI();
+		//	GUI gui = new GUI();
 			
 			
 			// calls different methods for different application options 
