@@ -40,7 +40,7 @@ public class Driver {
 			
 			
 			
-		//	closeCon(con);  						// close connection to DB
+			closeCon(con);  						// close connection to DB
 			
 		} catch(Exception e) {
 			e.printStackTrace();
