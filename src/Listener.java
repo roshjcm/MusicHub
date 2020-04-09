@@ -5,7 +5,7 @@ import java.sql.*;
 public class Listener {
 	
 	private Connection con;
-	private int userID, creditInfo;
+	private int userID, creditInfo, libID;
 	private String name, email, username, password, country, dob;
 	
 	public Listener(Connection con, int userID, String name, String email, String username, String password, String country,
@@ -19,7 +19,9 @@ public class Listener {
 		this.country = country;
 		this.dob = dob;
 		this.creditInfo = creditInfo;
+		this.libID = 0;
 	}
+
 	
 
 	public boolean createCart() { 
@@ -28,16 +30,16 @@ public class Listener {
 		int order_id = (int) (Math.random()*1000);
 		
 		try { 
-			// Create Uses entry
-			PreparedStatement createUsesEntry = con.prepareStatement("INSERT INTO Uses(order_id, listener_id) VALUES (?, ?);");
-			createUsesEntry.setInt(0, order_id);
-			createUsesEntry.setInt(1, userID);	
-		
 			// Create Shopping Cart entry
 			PreparedStatement createSCEntry = con.prepareStatement("INSERT INTO shopping_carts(order_id, total_amount,num_articles) values (?,?,?);");
 			createSCEntry.setInt(0, order_id);
 			createSCEntry.setFloat(1, ((float) 0.0));
 			createSCEntry.setInt(2, 1);
+			
+			// Create Uses entry
+			PreparedStatement createUsesEntry = con.prepareStatement("INSERT INTO Uses(order_id, listener_id) VALUES (?, ?);");
+			createUsesEntry.setInt(0, order_id);
+			createUsesEntry.setInt(1, userID);	
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
@@ -82,19 +84,22 @@ public class Listener {
 		
 		if (doesArticleExist(articleID)) { 
 			try {
-				// Increments num_songs in listener's library
 				Statement stmt = con.createStatement();
-				ResultSet getListenerLib = stmt.executeQuery("SELECT lib_id FROM Has WHERE listener_id = " + this.userID + ");");
-				int lib_id = getListenerLib.getInt(0);
 				
-				ResultSet getLibDetails = stmt.executeQuery("SELECT * FROM library WHERE lib_id = " + lib_id + ");");
+				// Increments num_songs in listener's library
+				ResultSet getLibDetails = stmt.executeQuery("SELECT * FROM library WHERE lib_id = " + this.libID + ");");
 				int num_songs = getLibDetails.getInt(1);
 				
 				num_songs++;
 				
 				PreparedStatement incrementLibSongs = con.prepareStatement("UPDATE library SET num_songs = ? WHERE lib_id = ?;");
-				incrementLibSongs.setInt(1, lib_id);
+				incrementLibSongs.setInt(1, this.libID);
 				incrementLibSongs.setInt(0, num_songs);	
+				
+				// Adds entry to IsAddedTo table
+				PreparedStatement incIsAddedTo = con.prepareStatement("INSERT INTO IsAddedTo(lib_id,article_id) values (?, ?);");
+				incIsAddedTo.setInt(0, this.libID);
+				incIsAddedTo.setInt(1, articleID);
 				
 			} catch (SQLException e) {
 				System.err.println("msg: " + e.getMessage() + 
@@ -110,34 +115,101 @@ public class Listener {
 	}
 	
 	
-	public boolean createPlaylist() {
-		// input -- all fields for Playlist object
+	public boolean createPlaylist(String name, String status, int n_songs) {
+		boolean created = true;
 		
-		// If successful,
-		return true;
+		try {
+			// Creates entry in Playlist table
+			PreparedStatement initPlaylist = con.prepareStatement("INSERT INTO playlists(name,status,num_songs,lib_id) values (?, ?, ?, ?);");
+			initPlaylist.setString(0, name);
+			initPlaylist.setString(1, status);
+			initPlaylist.setInt(2, n_songs);
+			initPlaylist.setInt(3, this.libID);
+			
+			// Creates entry in Creates table
+			PreparedStatement addToCreate = con.prepareStatement("INSERT INTO Creates(listener_id,lib_id,name) values (?, ?, ?);");
+			addToCreate.setInt(0, this.userID);
+			addToCreate.setInt(1, this.libID);
+			addToCreate.setString(2, name);
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			created = false;
+		}
+		return created;
 	}
 	
-	public boolean changeProfile() { 
+	
+	public boolean addToPlaylist(String name, int articleID) {
 		
-		// input -- part of profile to change 
-		// Modifies User DB table 	
+		boolean added = true;
 		
-		// If successful,
-		return true;
-		
+		if (isInLibrary(articleID)) {
+			
+			try {
+				
+				// Edit entry in Playlist table
+				Statement stmt = con.createStatement();
+				ResultSet getPlaylistDetails = stmt.executeQuery("SELECT * FROM playlists WHERE name= " + name + ");");
+				int num_songs = getPlaylistDetails.getInt(1);
+				
+				num_songs++;				// Increments num_songs in playlist
+				
+				PreparedStatement incrementPlaylistSongs = con.prepareStatement("UPDATE playlist SET num_songs = ? WHERE name = ?;");
+				incrementPlaylistSongs.setInt(0, num_songs);
+				incrementPlaylistSongs.setString(1, name);	
+				
+				// Creates entry in IsPartOf table
+				PreparedStatement addToIPO = con.prepareStatement("INSERT INTO IsPartOf(name,lib_id) values (?, ?);");
+				addToIPO.setString(0, name);
+				addToIPO.setInt(1, this.libID);
+								
+				// Create entry in ComprisesOf table
+				PreparedStatement addtoCO = con.prepareStatement("INSERT INTO ComprisesOf(lib_id,name,song_id) values (?, ?, ?);");
+				addtoCO.setInt(0, this.libID);
+				addtoCO.setString(1, name);
+				addtoCO.setInt(2, articleID);
+				
+			} catch (SQLException e) {
+				System.err.println("msg: " + e.getMessage() + 
+						"code: " + e.getErrorCode() + 
+						"state: " + e.getSQLState());	
+				added = false;
+			}
+		}
+		return added; 
 	}
+	
 	
 	private boolean isInLibrary(int articleID) { 
 		boolean exist = true;
 		
+		try { 
+			PreparedStatement inLib = con.prepareStatement("SELECT * FROM IsAddedTo WHERE lib_id = ? AND article_id = ?;");
+			inLib.setInt(0, this.libID);
+			inLib.setInt(1,  articleID);
+			ResultSet rs = inLib.executeQuery();
+			
+			if (rs == null) { 
+				exist = false;
+			}
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			exist = false;
+		}
 		return exist;
 	}
+	
 	
 	private boolean doesArticleExist(int articleID){
 		boolean exist = true;
 		
 		try {
-			PreparedStatement findSong = this.con.prepareStatement("SELECT * FROM articles WHERE article_id = ?;");
+			PreparedStatement findSong = con.prepareStatement("SELECT * FROM articles WHERE article_id = ?;");
 			findSong.setInt(0, articleID);
 			ResultSet rs = findSong.executeQuery();
 			
@@ -155,6 +227,45 @@ public class Listener {
 	
 	
 	
+	public boolean createLibID() { 
+		
+		boolean created = true;
+		this.libID = (int) (Math.random()*1000);
+		boolean lib_exists = true;
+		
+		try { 
+			
+			// checks if lib_id already exists
+			while (lib_exists) {
+				this.libID = (int) (Math.random()*1000);
+				
+				PreparedStatement findLib = con.prepareStatement("SELECT * FROM libraries WHERE lib_id = ?;");
+				findLib.setInt(0, this.libID);
+				ResultSet rs = findLib.executeQuery();
+				
+				if (rs == null) {
+					lib_exists = false;
+				}
+			}
+			
+			// adds to libraries table
+			PreparedStatement addtoLib = con.prepareStatement("INSERT INTO libraries(lib_id,num_songs) values (0, 0);");
+			addtoLib.setInt(0, this.libID);
+			addtoLib.setInt(1, 0);
+			
+			// adds to has table
+			PreparedStatement addtoHas = con.prepareStatement("INSERT INTO Has(listener_id,lib_id) values (?, ?);");
+			addtoHas.setInt(0, this.userID);
+			addtoHas.setInt(1, this.libID);
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+			created = false;
+		}
+		return created;		
+	}
 	
 	
 

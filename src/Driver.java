@@ -18,8 +18,6 @@ public class Driver {
 	}
 	
 	
-	
-	
 	public static void main(String[] args) { 
 		
 		String username = "jagust1";
@@ -38,7 +36,7 @@ public class Driver {
 				// login (which type of user are you) 
 				//
 			
-			
+		
 			
 			closeCon(con);  						// close connection to DB
 			
@@ -47,10 +45,5 @@ public class Driver {
 		}
 	
 	}
-	
-	
-	
-	
-	
 
 }
