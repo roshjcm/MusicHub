@@ -8,10 +8,9 @@ public class Listener {
 	private int userID, creditInfo, libID;
 	private String name, email, username, password, country, dob;
 	
-	public Listener(Connection con, int userID, String name, String email, String username, String password, String country,
+	public Listener(Connection con, String name, String email, String username, String password, String country,
 			String dob, int creditInfo) {
 		this.con = con;
-		this.userID = userID;
 		this.name = name;
 		this.email = email;
 		this.username = username;
@@ -20,8 +19,40 @@ public class Listener {
 		this.dob = dob;
 		this.creditInfo = creditInfo;
 		this.libID = 0;
+		this.createUserID();
 	}
-
+	
+	
+	private void createUserID() { 		
+		int x = (int) (Math.random()*1000);		
+		
+		while (!isValidID(x)) {
+			x = (int) (Math.random()*1000);
+		}	
+		this.userID = x;
+	}
+	
+	private boolean isValidID(int id) { 
+		
+		boolean valid = false;
+		
+		try {
+			PreparedStatement findID = con.prepareStatement("SELECT * FROM Users WHERE uid = ?;");
+			findID.setInt(0,  id);
+			ResultSet rs = findID.executeQuery();
+			
+			if (rs != null) { 
+				valid = false;
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+		}
+		return valid;
+	}
+	
 	
 
 	public boolean createCart() { 
@@ -35,11 +66,13 @@ public class Listener {
 			createSCEntry.setInt(0, order_id);
 			createSCEntry.setFloat(1, ((float) 0.0));
 			createSCEntry.setInt(2, 1);
+			ResultSet rs1 = createSCEntry.executeQuery();
 			
 			// Create Uses entry
 			PreparedStatement createUsesEntry = con.prepareStatement("INSERT INTO Uses(order_id, listener_id) VALUES (?, ?);");
 			createUsesEntry.setInt(0, order_id);
-			createUsesEntry.setInt(1, userID);	
+			createUsesEntry.setInt(1, userID);
+			ResultSet rs2 = createUsesEntry.executeQuery();
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
@@ -64,7 +97,8 @@ public class Listener {
 			
 			PreparedStatement incrementNumArticles = con.prepareStatement("UPDATE shopping_carts SET num_articles = ? WHERE order_id = ?;");
 			incrementNumArticles.setInt(0, num_articles);
-			incrementNumArticles.setInt(1, order_id);				
+			incrementNumArticles.setInt(1, order_id);	
+			ResultSet rs1 = incrementNumArticles.executeQuery();
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
@@ -78,6 +112,19 @@ public class Listener {
 		
 	}
 	
+	
+	public boolean checkOutCart(int order_id) {
+		
+		boolean completed = true;
+		
+		
+		// deposit money into artist ID (call Arist class?)
+		
+		
+		return completed;
+		
+	}
+	
 	public boolean addToLibrary(int articleID) {
 		
 		boolean added = true;
@@ -87,19 +134,21 @@ public class Listener {
 				Statement stmt = con.createStatement();
 				
 				// Increments num_songs in listener's library
-				ResultSet getLibDetails = stmt.executeQuery("SELECT * FROM library WHERE lib_id = " + this.libID + ");");
+				ResultSet getLibDetails = stmt.executeQuery("SELECT * FROM libraries WHERE lib_id = " + this.libID + ");");
 				int num_songs = getLibDetails.getInt(1);
 				
 				num_songs++;
 				
-				PreparedStatement incrementLibSongs = con.prepareStatement("UPDATE library SET num_songs = ? WHERE lib_id = ?;");
+				PreparedStatement incrementLibSongs = con.prepareStatement("UPDATE libraries SET num_songs = ? WHERE lib_id = ?;");
 				incrementLibSongs.setInt(1, this.libID);
 				incrementLibSongs.setInt(0, num_songs);	
+				ResultSet rs1 = incrementLibSongs.executeQuery();
 				
 				// Adds entry to IsAddedTo table
 				PreparedStatement incIsAddedTo = con.prepareStatement("INSERT INTO IsAddedTo(lib_id,article_id) values (?, ?);");
 				incIsAddedTo.setInt(0, this.libID);
 				incIsAddedTo.setInt(1, articleID);
+				ResultSet rs2 = incIsAddedTo.executeQuery();
 				
 			} catch (SQLException e) {
 				System.err.println("msg: " + e.getMessage() + 
@@ -125,12 +174,16 @@ public class Listener {
 			initPlaylist.setString(1, status);
 			initPlaylist.setInt(2, n_songs);
 			initPlaylist.setInt(3, this.libID);
+
+			ResultSet rs1 = initPlaylist.executeQuery();
 			
 			// Creates entry in Creates table
 			PreparedStatement addToCreate = con.prepareStatement("INSERT INTO Creates(listener_id,lib_id,name) values (?, ?, ?);");
 			addToCreate.setInt(0, this.userID);
 			addToCreate.setInt(1, this.libID);
 			addToCreate.setString(2, name);
+
+			ResultSet rs2 = addToCreate.executeQuery();
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
@@ -153,24 +206,27 @@ public class Listener {
 				// Edit entry in Playlist table
 				Statement stmt = con.createStatement();
 				ResultSet getPlaylistDetails = stmt.executeQuery("SELECT * FROM playlists WHERE name= " + name + ");");
-				int num_songs = getPlaylistDetails.getInt(1);
+				int num_songs = getPlaylistDetails.getInt(2);
 				
 				num_songs++;				// Increments num_songs in playlist
 				
 				PreparedStatement incrementPlaylistSongs = con.prepareStatement("UPDATE playlist SET num_songs = ? WHERE name = ?;");
 				incrementPlaylistSongs.setInt(0, num_songs);
 				incrementPlaylistSongs.setString(1, name);	
+				ResultSet rs1 = incrementPlaylistSongs.executeQuery();
 				
 				// Creates entry in IsPartOf table
 				PreparedStatement addToIPO = con.prepareStatement("INSERT INTO IsPartOf(name,lib_id) values (?, ?);");
 				addToIPO.setString(0, name);
 				addToIPO.setInt(1, this.libID);
+				ResultSet rs2 = addToIPO.executeQuery();
 								
 				// Create entry in ComprisesOf table
 				PreparedStatement addtoCO = con.prepareStatement("INSERT INTO ComprisesOf(lib_id,name,song_id) values (?, ?, ?);");
 				addtoCO.setInt(0, this.libID);
 				addtoCO.setString(1, name);
 				addtoCO.setInt(2, articleID);
+				ResultSet rs3 = addtoCO.executeQuery();
 				
 			} catch (SQLException e) {
 				System.err.println("msg: " + e.getMessage() + 
@@ -252,11 +308,14 @@ public class Listener {
 			PreparedStatement addtoLib = con.prepareStatement("INSERT INTO libraries(lib_id,num_songs) values (0, 0);");
 			addtoLib.setInt(0, this.libID);
 			addtoLib.setInt(1, 0);
+			ResultSet rs1 = addtoLib.executeQuery();
 			
 			// adds to has table
 			PreparedStatement addtoHas = con.prepareStatement("INSERT INTO Has(listener_id,lib_id) values (?, ?);");
 			addtoHas.setInt(0, this.userID);
 			addtoHas.setInt(1, this.libID);
+
+			ResultSet rs2 = addtoHas.executeQuery();
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
