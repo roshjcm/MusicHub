@@ -1,23 +1,38 @@
 create or replace function orders_by_genre(vargenre VARCHAR(30))
 	returns table (
-		article_id INTEGER,
-		ordered bigint
+		artist_id INTEGER,
+		ordered numeric
 		)
 	as $$
 	begin 
 	return query 
-	SELECT a.article_id, COUNT(order_id)
-	FROM contains c, articles a 
-	WHERE c.article_id = a.article_id AND a.genre = vargenre 
-	GROUP BY a.article_id;
+	SELECT r.artist_id, SUM(bygenre.sales)
+	FROM releases r, 
+			(SELECT a.article_id, COUNT(order_id) as sales
+			FROM contains c, articles a 
+			WHERE c.article_id = a.article_id AND a.genre = vargenre 
+			GROUP BY a.article_id) bygenre
+	WHERE r.article_id = bygenre.article_id
+	GROUP BY r.artist_id;
 	end; 
 	$$ language plpgsql;
 
+
 	create or replace function top_artist_genre(vargenre VARCHAR(30)) 
-		returns VARCHAR(20)
+		returns table(
+			top_artist VARCHAR(20),
+			sales numeric
+			)
 	as $$
 	begin 
-
+	return query
+	SELECT a.stage_name, b.ordered
+	FROM artists a, orders_by_genre(vargenre) b
+	WHERE a.uid = b.artist_id AND b.ordered >= ALL (
+		SELECT ordered
+		FROM orders_by_genre(vargenre) b);
+	end;
+	$$ language plpgsql;
 
 
 	create or replace function introduction() returns void
