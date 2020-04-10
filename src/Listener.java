@@ -1,15 +1,22 @@
 
 import java.sql.*;
-
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.text.SimpleDateFormat;
 
 public class Listener {
 	
 	private Connection con;
 	private int userID, creditInfo, libID;
-	private String name, email, username, password, country, dob;
+	private String name, email, username, password, country;
+	//Date dob;
+//	SimpleDateFormat dob;
+	LocalDate dob;
 	
-	public Listener(Connection con, String name, String email, String username, String password, String country,
-			String dob, int creditInfo) {
+	public Listener(Connection con, String name, String email, String username, 
+			String password, String country,
+			LocalDate dob, int creditInfo) {
 		this.con = con;
 		this.name = name;
 		this.email = email;
@@ -20,16 +27,43 @@ public class Listener {
 		this.creditInfo = creditInfo;
 		this.libID = 0;
 		this.createUserID();
+		
+		createUser();
 	}
 	
 	
+	private void createUser(){
+		
+		try {
+		System.out.println("Creating user (" + this.userID + "," + this.name + ", " + this.username + ", " + this.country
+				+ ", " + this.email + "," + this.dob + "," + this.creditInfo + ");");
+		
+		Statement stmt = con.createStatement();
+		stmt.executeQuery(
+				"INSERT INTO users(uid,name,username,country,email,dob,credit_info) "
+				+ "values (" + this.userID + ", \'" + this.name + "\', \'" + this.username + "\', \'" + this.country
+				+ "\', \'" + this.email + "\'," + this.dob + "," + this.creditInfo + ");");
+		
+		System.out.println("User successfully created + added to DB.");
+		
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+		}
+		
+		
+	}
+	
 	private void createUserID() { 		
-		int x = (int) (Math.random()*1000);		
+		int x = (int) (Math.random()*1000);
 		
 		while (!isValidID(x)) {
+			System.out.println("Trying userID:" + x);
 			x = (int) (Math.random()*1000);
 		}	
 		this.userID = x;
+		
 	}
 	
 	private boolean isValidID(int id) { 
@@ -37,12 +71,16 @@ public class Listener {
 		boolean valid = false;
 		
 		try {
-			PreparedStatement findID = con.prepareStatement("SELECT * FROM Users WHERE uid = ?;");
-			findID.setInt(0,  id);
-			ResultSet rs = findID.executeQuery();
-			
-			if (rs != null) { 
-				valid = false;
+		//	PreparedStatement findID = con.prepareStatement("SELECT * FROM Users WHERE uid = ?;");
+		//	findID.setInt(1,  id);
+			Statement statement = con.createStatement();
+			String s = "SELECT * FROM Users WHERE uid=" + id + ";";
+			ResultSet rs = statement.executeQuery(s);
+			boolean exist = rs.next();
+		
+			if (exist == false) { 
+				System.out.println("Valid.");
+				valid = true;
 			}
 			
 		} catch (SQLException e) {
