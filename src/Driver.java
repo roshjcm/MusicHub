@@ -1,13 +1,14 @@
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
+//import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.*;
-import java.util.Date;
+//import java.time.LocalDateTime;
+//import java.time.OffsetDateTime;
+//import java.util.*;
+//import java.util.Date;
 
-import com.sun.scenario.effect.Offset; 
+//import com.sun.scenario.effect.Offset; 
 
 
 
@@ -35,17 +36,18 @@ public class Driver {
 			con = openCon(username, pass);			// open connection to database
 			
 
-			System.out.println("Conncetion successful.");
+			System.out.println("Connection successful.");
 			
-			Date dob = new Date(); 
-			String input =  "2015-05-12 15:15:24".replace( " " , "T" ) ;
-			LocalDateTime ldt = LocalDateTime.parse( input ) ;
-			LocalDate ld = ldt.toLocalDate() ;
+//			Date dob = new Date(); 
+//			String input =  "2015-05-12 15:15:24".replace( " " , "T" ) ;
+//			LocalDateTime ldt = LocalDateTime.parse( input ) ;
+//			LocalDate ld = ldt.toLocalDate() ;
 			
-		//	SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+			LocalDate locald = LocalDate.of(2015, 05, 12);
+			Date date = Date.valueOf(locald); 
 			
 			Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", 
-					"jannalouise", "temp123", "Canada", ld, 12345678);
+					"jannalouise", "temp123", "Canada", date, "12345678");
 			
 		
 		//	GUI gui = new GUI();
