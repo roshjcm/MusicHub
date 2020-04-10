@@ -5,11 +5,7 @@ import java.sql.*;
 public class Driver {	
 
 	public static Connection openCon(String user, String pass) throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		
-		Connection con = DriverManager.getConnection(
-				"jdbc:db2://comp421.cs.mcgill.ca:50000/cs421", user, pass);
-		
+		Connection con = DriverManager.getConnection("jdbc:postgresql://comp421.cs.mcgill.ca:5432/cs421", user, pass);
 		return con;	
 	}
 	
@@ -26,7 +22,13 @@ public class Driver {
 	
 		 
 		try {
+		    DriverManager.registerDriver ( new org.postgresql.Driver() ) ;
 			con = openCon(username, pass);			// open connection to database
+			
+			
+		//	Listener user = new Listener();
+			
+			
 		
 			
 		//	GUI gui = new GUI();

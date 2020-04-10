@@ -100,6 +100,8 @@ public class Listener {
 			incrementNumArticles.setInt(1, order_id);	
 			ResultSet rs1 = incrementNumArticles.executeQuery();
 			
+			// Add Entry to Contains 
+			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
