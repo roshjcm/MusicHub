@@ -14,6 +14,9 @@ public class Driver {
 	}
 	
 	
+	
+	
+	
 	public static void main(String[] args) { 
 		
 		String username = "cs421g40";
@@ -21,17 +24,22 @@ public class Driver {
 		Connection con = null;
 	
 		 
-		try {
+		try {			
 		    DriverManager.registerDriver ( new org.postgresql.Driver() ) ;
 			con = openCon(username, pass);			// open connection to database
 			
 
-			System.out.println("Connection successful.");
+			System.out.println("DRIVER: Connection successful.");
 			
-			Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", 
-					"jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
+		//	Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", 
+		//			"jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE uid = 883;");
 			
-		
+			while (rs.next()) { 
+				System.out.println("Pulled user with id: " + rs.getInt(1) + " and name " + rs.getString(2));
+			}
+			
 		//	GUI gui = new GUI();
 		
 			
