@@ -30,17 +30,35 @@ public class Driver {
 			
 
 			System.out.println("DRIVER: Connection successful.");
+		
 			
-		//	Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", 
-		//			"jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE uid = 883;");
+		
+/**
+ * 		LISTENER 
+ * 
+ * To create an instance (insert into Users table), 
+		' Listener user = new Listener (con, name, email, username, pass, country, date (str), credit_info (str))';
+	
+		E.G. Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", "jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
+ * 
+ * 
+ * Functions 
+ * 
+ * -- createCart()
+ * -- addToCart(orderID, articleID)
+ * -- checkOutCart(orderID)
+ * 
+ * -- addToLibrary(articleID)
+ * 
+ * -- createPlaylist(name, status, n_songs)
+ * -- addToPlaylist(name, articleID)
+ * 
+ */
+
 			
-			while (rs.next()) { 
-				System.out.println("Pulled user with id: " + rs.getInt(1) + " and name " + rs.getString(2));
-			}
 			
-		//	GUI gui = new GUI();
+			
+			
 		
 			
 			closeCon(con);  						// close connection to DB

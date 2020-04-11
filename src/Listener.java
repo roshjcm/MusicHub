@@ -18,66 +18,9 @@ public class Listener {
 		this.country = country;
 		this.dob = dob;
 		this.creditInfo = creditInfo;
-		this.libID = 0;
+		createLibID();
 		createUser();
 	}
-	
-	
-	private void createUser(){
-		
-		int x = (int) (Math.random()*1000);
-		System.out.println("Generated id: " + x);
-		
-		while (!isValidID(x)) {
-			System.out.println("Trying userID:" + x);
-			x = (int) (Math.random()*1000);
-		}	
-		this.userID = x;
-		
-		try {
-				System.out.println("Creating user (" + this.userID + "," + this.name + ", " + this.username + ", " + this.country
-						+ ", " + this.email + "," + this.dob + "," + this.creditInfo + ");");
-				
-				Statement stmt = con.createStatement();
-				stmt.executeUpdate("INSERT INTO users(uid,name,username,country,email,dob,credit_info) "
-								+ "values (" + this.userID + ", \'" + this.name + "\', \'" + this.username
-								+ "\', \'" + this.country + "\', \'" + this.email + "\'," + this.dob + "," 
-								+ this.creditInfo + ");");
-				
-				System.out.println("User successfully created + added to DB.");
-				stmt.close();
-			} catch (SQLException e) {
-				System.err.println("msg: " + e.getMessage() + 
-						"code: " + e.getErrorCode() + 
-						"state: " + e.getSQLState());
-		}
-	}
-	
-	
-	private boolean isValidID(int id) { 
-		
-		boolean valid = false;
-		
-		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE uid=" + id + ";");
-			System.out.println("Query executed.");
-		
-			if (rs.next() == false) { 
-				System.out.println("User id " + id + " is valid.");
-				valid = true;
-			}
-			stmt.close();
-			
-		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
-					"code: " + e.getErrorCode() + 
-					"state: " + e.getSQLState());
-			return true;
-		}
-		return valid;
-	}
-	
 	
 
 	public boolean createCart() { 
@@ -105,6 +48,7 @@ public class Listener {
 		}
 		return created;
 	}
+	
 	
 	public boolean addToCart(int order_id, int article_id) {
 		
@@ -143,8 +87,8 @@ public class Listener {
 		
 		
 		return completed;
-		
 	}
+	
 	
 	public boolean addToLibrary(int articleID) {
 		
@@ -288,17 +232,70 @@ public class Listener {
 		}
 		return exist;
 	}
-	
-	
-	
-	public boolean createLibID() { 
+
+	private boolean isValidUserID(int id) { 
 		
-		boolean created = true;
+		boolean valid = false;
+		
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE uid=" + id + ";");
+			System.out.println("Query executed.");
+		
+			if (rs.next() == false) { 
+				System.out.println("User id " + id + " is valid.");
+				valid = true;
+			}
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+			return true;
+		}
+		return valid;
+	}
+	
+private void createUser(){
+		
+		int x = (int) (Math.random()*1000);
+		System.out.println("Generated id: " + x);
+		
+		while (!isValidUserID(x)) {
+			System.out.println("Trying userID:" + x);
+			x = (int) (Math.random()*1000);
+		}	
+		this.userID = x;
+		
+		try {
+				System.out.println("Creating user (" + this.userID + "," + this.name + ", " + this.username + ", " + this.country
+						+ ", " + this.email + "," + this.dob + "," + this.creditInfo + ");");
+				
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate("INSERT INTO users(uid,name,username,country,email,dob,credit_info) "
+								+ "values (" + this.userID + ", \'" + this.name + "\', \'" + this.username
+								+ "\', \'" + this.country + "\', \'" + this.email + "\'," + this.dob + "," 
+								+ this.creditInfo + ");");
+				
+				stmt.executeUpdate("INSERT INTO listeners(uid) values (" + this.userID + ");");
+				
+				System.out.println("Listener user successfully created + added to DB.");
+				stmt.close();
+			} catch (SQLException e) {
+				System.err.println("msg: " + e.getMessage() + 
+						"code: " + e.getErrorCode() + 
+						"state: " + e.getSQLState());
+		}
+	}
+	
+	
+	private void createLibID() { 
+		
 		this.libID = (int) (Math.random()*1000);
 		boolean lib_exists = true;
 		
 		try { 
-			
 			// checks if lib_id already exists
 			while (lib_exists) {
 				this.libID = (int) (Math.random()*1000);
@@ -327,9 +324,7 @@ public class Listener {
 			System.err.println("msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());
-			return false;
-		}
-		return created;		
+		}	
 	}
 	
 	
