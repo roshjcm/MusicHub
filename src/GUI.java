@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,42 +24,13 @@ public class GUI implements ActionListener {
 	private static JButton loginButton;
 	private static JButton signupButton;
 	private static JLabel success;
-	
-	/* public GUI () {
-		frame = new JFrame();  // the window
-		panel = new JPanel();
-		
-		title = new JLabel("Welcome to the MusicHub! Which option would you like to pick?");
-		caption = new JLabel("# of clicks: 0");
-		button = new JButton("Click me");
-		button.addActionListener(this);
-		
-		
-		panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-		panel.setLayout(new GridLayout(0, 1));
-		panel.add(title);
-		panel.add(button);
-		panel.add(caption);
-		
-		frame.add(panel, BorderLayout.CENTER);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Music Hub");
-		
-		frame.pack();
-		frame.setVisible(true);
-		
-	} */
 
-	public static void main(String[] args)
+	public GUI()
 	{
 		frame = new JFrame();  // the window
 		panel = new JPanel();
 
 		title = new JLabel("Welcome to the MusicHub! Please login to continue");
-		//JLabel caption = new JLabel("# of clicks: 0");
-		//JButton button = new JButton("Click me");
-		//button.addActionListener(this);
-
 		panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 		panel.setLayout(new GridLayout(0, 1));
 		panel.add(title);
@@ -88,11 +61,14 @@ public class GUI implements ActionListener {
 
 		loginButton = new JButton("Login");
 		loginButton.setBounds(10, 80, 80, 25);
-		loginButton.addActionListener(new GUI());
+		loginButton.setActionCommand("login");
+		loginButton.addActionListener(this);
 		panel.add(loginButton);
 
 		signupButton = new JButton("Sign Up");
 		signupButton.setBounds(10, 80, 80, 25);
+		signupButton.setActionCommand("signup");
+		signupButton.addActionListener(this);
 		panel.add(signupButton);
 
 		success = new JLabel("");
@@ -106,15 +82,31 @@ public class GUI implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String user = userText.getText();
-		String password = passwordText.getText();
-		System.out.println(user + ", " + password);
+		System.out.println("You just clicked on a button");
+		if("login".equals(e.getActionCommand())) {
+			success.setText("You just clicked on the login button right ?");
+			
+//			String user = userText.getText();
+//			String password = passwordText.getText();
+//			System.out.println(user + ", " + password);
 
-		if(user.equals("maanav@test.com") && password.equals("testing123")) {
-			success.setText("Login Successful!");
+			//ArrayList<String> users = Users.getUsers();
+//			if(/*users.contains(user)*/) {
+//				success.setText("We found your account!");
+//			}
+//			else {
+//				success.setText("The username or password is incorrect");
+//			}
 		}
 		else {
-			success.setText("The username or password is incorrect");
+			//new RegisterGUI();
+			success.setText("Did you just click on the sign-up button ?");
+			new RegisterGUI();
 		}
+		
 	}
+	
+	public static void main(String[] args) {
+			GUI g = new GUI();
+		}
 }
