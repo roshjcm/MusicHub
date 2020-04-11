@@ -1,22 +1,17 @@
 
 import java.sql.*;
-import java.sql.Date;
-import java.time.LocalDate;
-//import java.time.OffsetDateTime;
-//import java.text.SimpleDateFormat;
 
 public class Listener {
 	
 	private Connection con;
 	private int userID, libID;
-	private String name, email, username, password, country, creditInfo;
-	Date dob;
+	private String name, email, username, password, country, creditInfo,  dob;
 //	SimpleDateFormat dob;
 	//LocalDate dob;
 	
 	public Listener(Connection con, String name, String email, String username, 
 			String password, String country,
-			Date dob, String creditInfo) {
+			String dob, String creditInfo) {
 		this.con = con;
 		this.name = name;
 		this.email = email;
