@@ -7,6 +7,18 @@ public class Listener {
 	private int userID, libID;
 	private String name, email, username, password, country, creditInfo, dob;
 	
+	public Listener(int uid) {
+		
+		boolean loggedIn = this.logIn(uid);
+		
+		if (loggedIn) { 
+			System.out.println("Successfully logged in.");
+			
+		} else { 
+			System.out.println("Error. Cannot log in.");
+		}
+	}
+	
 	public Listener(Connection con, String name, String email, String username, 
 			String password, String country,
 			String dob, String creditInfo) {
@@ -22,10 +34,53 @@ public class Listener {
 		this.createUser();
 	}
 	
+	private boolean logIn(int userID) {
+		try { 
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM listeners WHERE uid=" + userID + ";");
+			
+			this.userID = userID;
+			// populate all fields with info
+			
+			if (rs.next() == false) { 
+				return false;
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			return false;
+		}
+		return true;
+	}
+	
+	public void printLibrary() { 
+		try { 
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM libraries WHERE lib_id=" + this.libID + ";");
+			ResultSetMetaData rsmd = rs.getMetaData();
+	
+			int columnsNumber = rsmd.getColumnCount();
+			while (rs.next()) {
+			    for (int i = 1; i <= columnsNumber; i++) {
+			        if (i > 1) System.out.print(",  ");
+			        String colVal = rs.getString(i);
+			        System.out.print(colVal + " " + rsmd.getColumnName(i));
+			    }
+			    System.out.println("");
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+		}
+	}
+	
 
-	public boolean createCart() { 
+	public int createCart() { 
 		
-		boolean created = true;
 		int order_id = (int) (Math.random()*1000);
 		
 		try { 
@@ -44,9 +99,9 @@ public class Listener {
 			System.err.println("msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());	
-			created = false;
+			return -1;
 		}
-		return created;
+		return order_id;
 	}
 	
 	
@@ -118,14 +173,14 @@ public class Listener {
 				added = false;
 			}
 		} else { 		
-			System.out.println("Song does not exist");
+			System.out.println("Song does not exist.");
 			added = false;
 		}
 		return added;
 	}
 	
 	
-	public boolean createPlaylist(String name, String status, int n_songs) {
+	public boolean createPlaylist(String name, String status) {
 		boolean created = true;
 		
 		try {
@@ -133,11 +188,11 @@ public class Listener {
 			Statement stmt = con.createStatement();
 
 			stmt.executeUpdate("INSERT INTO playlists(name,status,num_songs,lib_id) "
-							+ "values (" + name + "," + status + "," + n_songs + "," + this.libID + ");");
+							+ "values (\'" + name + "\',\'" + status + "\'," + 0 + "," + this.libID + ");");
 			
 			// Creates entry in Creates table
 			stmt.executeUpdate("INSERT INTO Creates(listener_id,lib_id,name) "
-							+ "values (" + this.userID + "," + this.libID + ", " + name + ");");
+							+ "values (" + this.userID + "," + this.libID + ", \'" + name + "\');");
 			
 			stmt.close();
 		} catch (SQLException e) {
@@ -160,20 +215,20 @@ public class Listener {
 				
 				// Edit entry in Playlist table
 				Statement stmt = con.createStatement();
-				ResultSet getPlaylistDetails = stmt.executeQuery("SELECT * FROM playlists WHERE name= " + name + ");");
+				ResultSet getPlaylistDetails = stmt.executeQuery("SELECT * FROM playlists WHERE name= \'" + name + "\');");
 				int num_songs = getPlaylistDetails.getInt(3);
 				num_songs++;				// Increments num_songs in playlist
 
 				stmt.executeUpdate("UPDATE playlist SET num_songs = " + num_songs 
-									+ "WHERE name =" + name + ");");
+									+ "WHERE name =\'" + name + "\');");
 				
 				// Creates entry in IsPartOf table
 				stmt.executeUpdate("INSERT INTO IsPartOf(name,lib_id) "
-								+ "values (" + name + "," + this.libID + ");");
+								+ "values (\'" + name + "\'," + this.libID + ");");
 								
 				// Create entry in ComprisesOf table
 				stmt.executeUpdate("INSERT INTO ComprisesOf(lib_id,name,song_id) "
-								+ "values (" + this.libID + "," + name + "," + articleID + ");");
+								+ "values (" + this.libID + ",\'" + name + "\'," + articleID + ");");
 				
 				stmt.close();
 				
@@ -257,7 +312,7 @@ public class Listener {
 		return valid;
 	}
 	
-private void createUser(){
+	private void createUser(){
 		
 		int x = (int) (Math.random()*1000);
 		System.out.println("Generated id: " + x);
@@ -291,8 +346,7 @@ private void createUser(){
 	
 	
 	private void createLibID() { 
-		
-		this.libID = 0;
+	
 		boolean lib_exists = true;
 		
 		try { 

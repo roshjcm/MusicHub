@@ -1,5 +1,6 @@
 
 import java.sql.*;
+import java.util.Scanner;
 //import com.sun.scenario.effect.Offset; 
 
 public class Driver {	
@@ -46,22 +47,7 @@ public class Driver {
 			 * 				1 -- Artist
 			 * 						-- Enters all info
 			 * 						-- Creates account
-			 * 
-			 * ListenerMenu (class -- to create)
-			 * 
-			 * Choose one option:
-			 * 		0 -- Create Playlist
-			 * 				-- Enter info (name)
-			 * 				-- Calls createPlaylist (Listener class)
-			 * 		1 -- My Library
-			 * 				-- Calls printLibrary(Listener class -- to create)
-			 * 		2 -- Buy Article
-			 * 				-- Print reminder to remember orderID and articleID
-			 * 				-- Calls createCart(), prints orderID
-			 * 				-- Calls addToCart(orderID, articleID)
-			 * 				-- When ready to check out, call checkOutCart
-			 * 
-			 * 
+
 			 * ArtistMenu (class -- to create)
 			 * 
 			 * Choose one: 
@@ -74,39 +60,152 @@ public class Driver {
 			 * 				-- Print success
 			 * 
 			 */
-		
 			
-						
-				/**
-				 * 		LISTENER 
-				 * 
-				 * To create an instance (insert into Users table), 
-						' Listener user = new Listener (con, name, email, username, pass, country, date (str), credit_info (str))';
-					
-						E.G. Listener user = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", "jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
-				 * 
-				 * 
-				 * Functions 
-				 * 
-				 * Shopping Cart:
-				 * -- createCart()
-				 * -- addToCart(orderID, articleID)
-				 * -- checkOutCart(orderID)
-				 * 
-				 * Library:
-				 * -- addToLibrary(articleID)
-				 * 
-				 * Playlist:
-				 * -- createPlaylist(name, status, n_songs)
-				 * -- addToPlaylist(name, articleID)
-				 * 
-				 */
+		//	Listener listener = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", "jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
+			
+			
+			// uid = 131
+			
+			//
+			//
+			//
+			//				 LISTENER MENU 
+			//
+			//
+			//
+			
+			
 
+			Scanner scan = new Scanner(System.in);
+			char cont = 'Y';
+			int choice = -1;
+			
+			while (cont == 'Y' || cont == 'y') { 
+				System.out.println("Choose one option:\n 0 -- Print My Library\n 1 -- Buy Article\n 2 -- Create Playlist\n 3 -- Add to Playlist\n ");
+				choice = scan.nextInt();
+					
+			
+				if (choice == 0) { 		// PRINT LISTENER LIBRARY					
+//					listener.printLibrary();
+
+					
+					System.out.println("\nWould you like to return to the menu?");
+					System.out.println("Y -- Yes please!, N -- No thank you. Please exit the app.\n");
+					cont = scan.next().charAt(0);
+					
+					
+				} else if (choice == 1) { 		// BUY ARTICLE 
+					int articleID = 0;
+			//		int orderID = listener.createCart();
+				//	System.out.println("Your order ID is: " + orderID);
+					System.out.println("Reminder: to buy an article, please remember your order ID number as well as the ID number of the song or album you wish to purchase. \n"
+							+ "To view the ID number of a song or album, print your library.");
+					
+					while (articleID != -1) { 
+						boolean success = true;  // **
+						System.out.println("Please enter the ID number of the song or album you wish to add to your cart: ");
+						
+						articleID = scan.nextInt();
+						
+			//			success = listener.addToCart(orderID, articleID);
+						
+						if (success) { 
+							System.out.println("Item successfully added to shopping cart. Would you like to add another item to your cart?");
+							System.out.println("Y -- Yes please! ; N -- No thank you. I would like to checkout.");
+							char x = scan.next().charAt(0);
+							
+							if (x == 'Y') { 
+								articleID = 0;
+							} else { 
+								articleID = -1;
+							}
+						} else { 
+							System.out.println("Article ID does not exist");
+						}
+					}
+					
+		//			listener.checkOutCart(orderID);
+					System.out.println("Shopping cart successfully check out. Items successfully purchased.");
+					
+					System.out.println("\nWould you like to return to the menu?");
+					System.out.println("Y -- Yes please!, N -- No thank you. Please exit the app.\n");
+					cont = scan.next().charAt(0);
+					
+				} else if (choice == 2) { 	 // CREATE PLAYLIST
+					System.out.println("You are now creating a playlist. Please enter the name of the playlist:");
+					//System.out.println("Name: ");
+				//	System.out.println("Status : ");
+					scan.nextLine();
+					String name = scan.nextLine();
+					System.out.println("Please enter the status of the playlist (0 -- public, 1 -- private): ");
 	
+					int st = scan.nextInt();
+					
+					
+					String status;
+					
+					if (st == 0) { 
+						status = "public";
+					} else { 
+						status = "private";
+					}
+					
+			//		boolean success = listener.createPlaylist(name, status);
+					boolean success = true;
+					
+					if (success) {
+						System.out.println("Playlist successfully created! Here are the details:\n Name: " + name + "\n Status: " + status + "\n");
+						
+					} else { 
+						System.out.println("Error in creating playlist. Try again.\n");
+					}
+					
+					System.out.println("\nWould you like to return to the menu?");
+					System.out.println("Y -- Yes please!, N -- No thank you. Please exit the app.\n");
+					cont = scan.next().charAt(0);
+					
+				} else {  		// ADD TO PLAYLIST
+					System.out.println("You are now adding items to your playlist. \nReminder: to add an item to you playlist, "
+							+ "please remember your playlist name as well as the ID number of the song or album you wish to add. "
+							+ "To view the ID number of a song or album, print your library.\n");	
+					
+					System.out.println("Please enter the name of the playlist: ");
+					scan.nextLine();					
+					String name = scan.nextLine();
 			
+					boolean cont2 = true;
+					
+					while (cont2) { 
+						System.out.println("Please enter the ID number of the song or album you wish to add to this playlist: ");
+						int articleID = scan.nextInt();
+						
+		//				boolean success = listener.addToPlaylist(name, articleID);
+						boolean success = true;
+						
+						if (success) { 
+							System.out.println("Item successfully added to playlist. Would you like to add another item to the playlist?\n"
+									+ "(Y -- Yes please! \n N -- No thank you.");
+							char x = scan.next().charAt(0);
+							
+							if (x == 'Y' || x == 'y') { 
+								cont2 = true;
+							} else { 
+								cont2 = false;
+							}
+						} else { 
+							System.out.println("Error in adding to playlist. Try again.");
+						}
+					}
+					
+					System.out.println("\nWould you like to return to the menu?");
+					System.out.println("Y -- Yes please!, N -- No thank you. Please exit the app.\n");
+					cont = scan.next().charAt(0);
+				}
+				
+				//cont = true;
+			}
 			
-		
-			
+			scan.close();			
 			closeCon(con);  						// close connection to DB
 			
 		} catch(Exception e) {
