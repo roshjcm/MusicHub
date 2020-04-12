@@ -18,8 +18,8 @@ public class Listener {
 		this.country = country;
 		this.dob = dob;
 		this.creditInfo = creditInfo;
-		createLibID();
-		createUser();
+		this.createLibID();
+		this.createUser();
 	}
 	
 
@@ -292,7 +292,7 @@ private void createUser(){
 	
 	private void createLibID() { 
 		
-		this.libID = (int) (Math.random()*1000);
+		this.libID = 0;
 		boolean lib_exists = true;
 		
 		try { 

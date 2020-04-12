@@ -30,10 +30,14 @@ public class Artist {
 	
 	
 	
-	public boolean releasesArticle(int article_id, String title, String genre, String release_date, float price) {
+	public boolean releaseArticle(String title, String genre, float price, int type, String duration, String album_type) {
+		
+		// if int = 0, song; = 1, album)
 		
 		boolean released = true;
-		
+		int article_id = createArticleID();
+		String release_date = "2020-04-12"; // generate today's date + turn into String
+				
 		try { 
 
 			Statement stmt = con.createStatement();
@@ -45,6 +49,12 @@ public class Artist {
 			// Adds entry to Releases table
 			stmt.executeUpdate("INSERT INTO Releases(artist_id,article_id) "
 					+ "values (" + this.userID + "," + article_id + ");");
+			
+			if (type==0) { 
+				stmt.executeUpdate("INSERT INTO songs(article_id,duration) values (" + article_id + "," + duration + ");");
+			} else { 
+				stmt.executeUpdate("INSERT INTO albums(article_id,type) values (" + article_id + "," + album_type + ");");
+			}
 			
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
@@ -124,5 +134,33 @@ public class Artist {
 		}
 		return valid;
 	}
+	
+		
+	private int createArticleID() { 
+			
+			int articleID = 0;
+			boolean aid_exists = true;
+			
+			try { 
+				// checks if article id already exists
+				while (aid_exists) {
+					articleID = (int) (Math.random()*1000);
+	
+					Statement stmt = con.createStatement();
+					ResultSet rs = stmt.executeQuery("SELECT * FROM articles WHERE article_id=" + articleID + ";");
+					
+					if (rs.next() == false) { 
+						aid_exists = false;
+					}
+					stmt.close();
+				}
+			} catch (SQLException e) {
+				System.err.println("msg: " + e.getMessage() + 
+						"code: " + e.getErrorCode() + 
+						"state: " + e.getSQLState());
+				return 0;
+			}	
+			return articleID;
+		}
 
 }
