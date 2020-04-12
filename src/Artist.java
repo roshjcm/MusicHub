@@ -34,16 +34,16 @@ public class Artist {
 			if (rs.next() == false) { 
 				return false;
 			}else {
-				this.userID = rs.getInt(0);
+				this.userID = rs.getInt("uid");
 				this.stageName = rs.getString("stage_name");
 				this.balance = rs.getFloat("balance");
 			}
 
 			stmt.close();
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
-					"code: " + e.getErrorCode() + 
-					"state: " + e.getSQLState());	
+			System.err.println("LOG IN ARTIST msg: " + e.getMessage() + 
+					" code: " + e.getErrorCode() + 
+					" state: " + e.getSQLState());	
 			return false;
 		}
 		return true;
@@ -54,7 +54,7 @@ public class Artist {
 		int x = (int) (Math.random()*1000);
 		System.out.println("Generated id: " + x);
 		
-		while (!isValidUserID(x)) {
+		while (!isValidArticleID(x)) {
 			System.out.println("Trying userID:" + x);
 			x = (int) (Math.random()*1000);
 		}
@@ -66,19 +66,23 @@ public class Artist {
 		try { 
 
 			Statement stmt = con.createStatement();
-			
+
 			// Creates article	
 			stmt.executeUpdate("INSERT INTO articles(article_id,title,genre,release_date,price) "
-							+ "values (" + article_id + "," + title + "," + genre + "," + release_date + "," + price + ");");
+					+ "values(" + article_id + ",'" + title + "','" + genre + "','" +release_date + "'," + price + ");");
 			
 			// Adds entry to Releases table
 			stmt.executeUpdate("INSERT INTO Releases(artist_id,article_id) "
 					+ "values (" + this.userID + "," + article_id + ");");
+			
+			
+			System.out.println("The article has been added : " + article_id + "," + title + "," + genre + "," + release_date + "," + price);
+			
 			stmt.close();
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
-					"code: " + e.getErrorCode() + 
-					"state: " + e.getSQLState());
+			System.err.println("Adding Article : msg: " + e.getMessage() + 
+					" code: " + e.getErrorCode() + 
+					" state: " + e.getSQLState());
 			released = false;
 		}
 		return released;	
@@ -110,7 +114,6 @@ public class Artist {
 		this.userID = x;
 		
 		try {
-				
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate("INSERT INTO users(uid,name,username,country,email,dob,credit_info) "
 								+ "values (" + this.userID + ", \'" + this.name + "\', \'" + this.username
@@ -129,25 +132,6 @@ public class Artist {
 		}
 	}
 	
-//	public String getStage_name() {
-//		String stage_name = "";
-//		try { 
-//			Statement stmt = con.createStatement();
-//			ResultSet rs = stmt.executeQuery("SELECT stage_name FROM artists WHERE uid=" + userID + ";");
-//			
-//			if (rs.next() == true) { 
-//				stage_name = rs.getString("stage_name");
-//			}else 
-//
-//			stmt.close();
-//		} catch (SQLException e) {
-//			System.err.println("msg: " + e.getMessage() + 
-//					"code: " + e.getErrorCode() + 
-//					"state: " + e.getSQLState());	
-//		}
-//		return stage_name;
-//	}
-	
 	private boolean isValidUserID(int id) { 
 		
 		boolean valid = false;
@@ -164,7 +148,7 @@ public class Artist {
 			stmt.close();
 			
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
+			System.err.println(" is valid user id : msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());
 			return true;
@@ -178,8 +162,8 @@ private boolean isValidArticleID(int id) {
 		
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Article WHERE article_id=" + id + ";");
-			System.out.println("Query executed.");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM articles WHERE article_id=" + id + ";");
+			//System.out.println("Query executed.");
 		
 			if (rs.next() == false) { 
 				System.out.println("Article id " + id + " is valid.");
@@ -188,7 +172,7 @@ private boolean isValidArticleID(int id) {
 			stmt.close();
 			
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
+			System.err.println(" checking article id : msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());
 			return true;
