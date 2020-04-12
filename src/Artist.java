@@ -94,6 +94,24 @@ public class Artist {
 		
 		boolean deposited = true;
 		
+		try {
+			Statement stmt = con.createStatement();
+			
+			ResultSet getBalanceDetails = stmt.executeQuery("SELECT * FROM artists WHERE artist_id = " + this.userID + ");");
+			float balance = getBalanceDetails.getFloat("balance");
+			balance += moneyEarned;
+			
+			stmt.executeUpdate("UPDATE artists SET balance = " + balance
+					+ " WHERE artist_id =" + this.userID + ");");
+			
+			stmt.close();
+		}catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			deposited = false;
+		}
+		
 		
 		// not sure how to implement
 		
