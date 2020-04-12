@@ -81,6 +81,38 @@ public class Driver {
 					
 				} else { 
 					// Check if login works in Artist class
+					
+					Artist art = new Artist(con, "", "", "", "", "", "","", "");
+
+					logInSuccesful = art.logIn(uid);
+					if (logInSuccesful) {
+						String answ = "no";
+						while(answ.toLowerCase().equals("no")) {
+							System.out.println("Welcome " + art.stageName + " !");
+							Scanner myObj = new Scanner(System.in);
+							System.out.println("Options: 1.Show balance or 2.Upload Article");
+							int option = myObj.nextInt();  // Read user input
+							
+							if(option ==1) System.out.println("You're balance is of $" + art.balance);
+							else if (option ==2) {
+								System.out.println("Please enter the article information : title, genre, price (each followed by enter)");
+								Scanner myObj2 = new Scanner(System.in);
+								String title = myObj2.nextLine();
+								String genre = myObj2.nextLine();
+								String p = myObj2.nextLine();
+								float price = Float.parseFloat(p);
+								
+								DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+								LocalDate localDate = LocalDate.now();
+								 art.releasesArticle(title, genre,  localDate.toString(), price);
+							}
+							
+							System.out.println("Exit ?");
+							Scanner myObj1 = new Scanner(System.in);
+							answ = myObj1.nextLine();
+						}
+					}
+					
 				}
 
 			} else {
@@ -122,7 +154,8 @@ public class Driver {
 					scan.nextLine();	
 					String stageName = scan.nextLine();
 					
-					// Artist art = new Artist(con, fullName, stageName, email, user, pwd, country, dateOfBirth, credit);
+					Artist art = new Artist(con, fullName, stageName, email, user, pwd, country, dateOfBirth, credit);
+					art.createUser();
 				}
 				
 				Listener list = new Listener(con, fullName, email, user, pwd, country, dateOfBirth, credit);	
