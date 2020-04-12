@@ -4,9 +4,9 @@ import java.sql.*;
 public class Artist {
 	
 	private Connection con;
-	private int userID;
-	private String stageName, name, email, username, password, country, creditInfo, dob;
-	private float balance;
+	public int userID;
+	public String stageName, name, email, username, password, country, creditInfo, dob;
+	public float balance;
 	
 	
 	public Artist(Connection con, String name, String stageName, String email, 
@@ -23,14 +23,43 @@ public class Artist {
 		
 		this.stageName = name;
 		this.balance = (float) 0.0;
-		this.createUser();
+	//	this.createUser();
+	}
+
+	public boolean logIn(int userID) {
+		try { 
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM artists WHERE uid=" + userID + ";");
+			
+			if (rs.next() == false) { 
+				return false;
+			}else {
+				this.userID = rs.getInt(0);
+				this.stageName = rs.getString("stage_name");
+				this.balance = rs.getFloat("balance");
+			}
+
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			return false;
+		}
+		return true;
 	}
 	
-	
-	
-	
-	
-	public boolean releasesArticle(int article_id, String title, String genre, String release_date, float price) {
+	public boolean releasesArticle(String title, String genre, String release_date, float price) {
+		
+		int x = (int) (Math.random()*1000);
+		System.out.println("Generated id: " + x);
+		
+		while (!isValidUserID(x)) {
+			System.out.println("Trying userID:" + x);
+			x = (int) (Math.random()*1000);
+		}
+		
+		int article_id = x;
 		
 		boolean released = true;
 		
@@ -45,7 +74,7 @@ public class Artist {
 			// Adds entry to Releases table
 			stmt.executeUpdate("INSERT INTO Releases(artist_id,article_id) "
 					+ "values (" + this.userID + "," + article_id + ");");
-			
+			stmt.close();
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
@@ -57,9 +86,10 @@ public class Artist {
 	
 	
 	
-	public boolean depositEarnings () { 
+	public boolean depositEarnings (float moneyEarned) { 
 		
 		boolean deposited = true;
+		
 		
 		// not sure how to implement
 		
@@ -99,7 +129,24 @@ public class Artist {
 		}
 	}
 	
-
+//	public String getStage_name() {
+//		String stage_name = "";
+//		try { 
+//			Statement stmt = con.createStatement();
+//			ResultSet rs = stmt.executeQuery("SELECT stage_name FROM artists WHERE uid=" + userID + ";");
+//			
+//			if (rs.next() == true) { 
+//				stage_name = rs.getString("stage_name");
+//			}else 
+//
+//			stmt.close();
+//		} catch (SQLException e) {
+//			System.err.println("msg: " + e.getMessage() + 
+//					"code: " + e.getErrorCode() + 
+//					"state: " + e.getSQLState());	
+//		}
+//		return stage_name;
+//	}
 	
 	private boolean isValidUserID(int id) { 
 		
@@ -112,6 +159,30 @@ public class Artist {
 		
 			if (rs.next() == false) { 
 				System.out.println("User id " + id + " is valid.");
+				valid = true;
+			}
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+			return true;
+		}
+		return valid;
+	}
+	
+private boolean isValidArticleID(int id) { 
+		
+		boolean valid = false;
+		
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Article WHERE article_id=" + id + ";");
+			System.out.println("Query executed.");
+		
+			if (rs.next() == false) { 
+				System.out.println("Article id " + id + " is valid.");
 				valid = true;
 			}
 			stmt.close();

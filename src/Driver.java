@@ -1,6 +1,10 @@
 
 import java.sql.*;
+
+import java.util.Scanner;
+import java.time.LocalDate;
 //import com.sun.scenario.effect.Offset; 
+import java.time.format.DateTimeFormatter;
 
 public class Driver {	
 
@@ -54,11 +58,44 @@ public class Driver {
  * -- addToPlaylist(name, articleID)
  * 
  */
+			//enter log in + password
+			//choose which option of account
+			//call the respective log in 
+			//if succesful and type is artist 
 
+			Boolean logInSuccesful = false;
+			String typeUser = "artist";
+			int uid = 0;
 			
-			
-			
-			
+			if(typeUser.toLowerCase().equals("artist")) {
+				Artist art = new Artist(con, "", "", "", "", "", "","", "");
+				
+				logInSuccesful = art.logIn(uid);
+				if (logInSuccesful) {
+					String answ = "no";
+					while(answ.toLowerCase().equals("no")) {
+						System.out.println("Welcome " + art.stageName + " !");
+						Scanner myObj = new Scanner(System.in);
+						System.out.println("Options: 1.Show balance or 2.Upload Article");
+						int option = myObj.nextInt();  // Read user input
+						
+						if(option ==1) System.out.println("You're balance is of $" + art.balance);
+						else if (option ==2) {
+							System.out.println("Please enter the article information : title, genre, price (each followed by enter)");
+							String title = myObj.nextLine();
+							String genre = myObj.nextLine();
+							float price = myObj.nextFloat();
+							
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+							LocalDate localDate = LocalDate.now();
+							 art.releasesArticle( title,  genre,  localDate.toString(),  price);
+						}
+						
+						System.out.println("Exit ?");
+						answ = myObj.nextLine();
+					}
+				}
+			}
 		
 			
 			closeCon(con);  						// close connection to DB
@@ -68,5 +105,7 @@ public class Driver {
 		}
 	
 	}
+	
+	
 
 }
