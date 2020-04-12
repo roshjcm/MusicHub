@@ -47,19 +47,82 @@ public class Driver {
 			 * 				1 -- Artist
 			 * 						-- Enters all info
 			 * 						-- Creates account
-
-			 * ArtistMenu (class -- to create)
-			 * 
-			 * Choose one: 
-			 * 		0 -- Show balance
-			 * 		1 -- Upload article 
-			 * 				-- Enter info (title, genre, price, article type, duration, album_type)
-			 * 					-- 0 - Song (input duration)
-			 * 					-- 1 - Album (input album type)
-			 * 				-- Call releaseArticle(Artist class)
-			 * 				-- Print success
 			 * 
 			 */
+			
+			Scanner scan = new Scanner(System.in);  // Create a Scanner object
+			int userType = -1;
+			
+			System.out.println("Hello, welcome to Music Hub!");
+			
+			System.out.println("Choose one option:");
+			System.out.println("0 -- Log in \n1 -- Create a new account");
+			int option = scan.nextInt();  
+			scan.nextLine();
+			
+			if (option == 0) {
+				System.out.println("Enter user name: ");
+				scan.nextLine();	
+				String user = scan.nextLine();
+				
+				System.out.println("Enter password: ");
+				scan.nextLine();	
+				String pw = scan.nextLine();
+				
+				System.out.println("Choose account type. \n0 -- Listener ; 1 -- Artist");
+				userType = scan.nextInt();
+				
+				if (userType == 0) { 
+					// Check if login works in Listener class 
+				} else { 
+					// Check if login works in Artist class
+				}
+
+			} else {
+				System.out.println("You are now creating a new account.");
+				
+				System.out.println(" Enter your full name: ");
+				scan.nextLine();	
+				String fullName = scan.nextLine();
+
+				System.out.println("Enter user name: ");
+				scan.nextLine();	
+				String user = scan.nextLine();
+				
+				System.out.println("Enter your email: ");
+				scan.nextLine();	
+				String email = scan.nextLine();
+				
+				System.out.println("Enter your password: ");
+				scan.nextLine();	
+				String pwd = scan.nextLine();
+				
+				System.out.println("Enter your country: ");
+				scan.nextLine();	
+				String country = scan.nextLine();
+				
+				System.out.println("Enter your date of birth: ");
+				scan.nextLine();	
+				String dateOfBirth = scan.nextLine();
+				
+				System.out.println("Enter your credit: ");
+				scan.nextLine();	
+				String credit = scan.nextLine();
+				
+				System.out.println("Are you a listener or an artist? \n0 -- Listener ; 1 -- Artist");
+				int c = scan.nextInt();
+				
+				if (c == 1) { 
+					System.out.println("Enter your stage name: ");
+					scan.nextLine();	
+					String stageName = scan.nextLine();
+					
+					// Artist art = new Artist(con, fullName, stageName, email, user, pwd, country, dateOfBirth, credit);
+				}
+				
+				Listener list = new Listener(con, fullName, email, user, pwd, country, dateOfBirth, credit);	
+				System.out.print("Account successfully created.");
+			}
 			
 		//	Listener listener = new Listener(con, "Janna Agustin", "jannajanna123@gmail.com", "jannalouise", "temp123", "Canada", "2015-05-12", "12345678");
 			
@@ -71,12 +134,11 @@ public class Driver {
 			//
 			//				 LISTENER MENU 
 			//
-			//
+			// if (userType == 0) { 
 			//
 			
 			
 
-			Scanner scan = new Scanner(System.in);
 			char cont = 'Y';
 			int choice = -1;
 			
