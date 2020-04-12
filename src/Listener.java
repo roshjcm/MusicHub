@@ -6,18 +6,7 @@ public class Listener {
 	private Connection con;
 	private int userID, libID;
 	private String name, email, username, password, country, creditInfo, dob;
-	
-	public Listener(int uid) {
-		
-		boolean loggedIn = this.logIn(uid);
-		
-		if (loggedIn) { 
-			System.out.println("Successfully logged in.");
-			
-		} else { 
-			System.out.println("Error. Cannot log in.");
-		}
-	}
+
 	
 	public Listener(Connection con, String name, String email, String username, 
 			String password, String country,
@@ -34,18 +23,34 @@ public class Listener {
 		this.createUser();
 	}
 	
-	private boolean logIn(int userID) {
-		try { 
+	public Listener(Connection con, int uid, String username, String password) {
+		this.con = con; 
+		boolean loggedIn = this.logIn(uid);
+			
+		if (loggedIn) { 
+			System.out.println("Successfully logged in.");
+		} else { 
+			System.out.println("Error. Cannot log in.");
+		}
+	}
+	
+	
+	
+	public boolean logIn(int uid) { 
+		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM listeners WHERE uid=" + userID + ";");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE u=" + uid + ";");
 			
-			this.userID = userID;
-			// populate all fields with info
-			
-			if (rs.next() == false) { 
-				return false;
+			while (rs.next()) { 
+				this.userID = rs.getInt(1);
+				this.name = rs.getString(2);
+				this.username = rs.getString(3);
+				this.country = rs.getString(4);
+				this.email = rs.getString(5);
+				this.dob = rs.getString(6);
+				this.creditInfo = rs.getString(7);
 			}
-			stmt.close();
+		
 		} catch (SQLException e) {
 			System.err.println("msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
@@ -54,6 +59,7 @@ public class Listener {
 		}
 		return true;
 	}
+	
 	
 	public void printLibrary() { 
 		try { 
@@ -342,6 +348,7 @@ public class Listener {
 						"code: " + e.getErrorCode() + 
 						"state: " + e.getSQLState());
 		}
+		System.out.println("IMPORTANT: Your user ID number is: " + this.userID);
 	}
 	
 	

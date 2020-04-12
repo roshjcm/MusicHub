@@ -107,7 +107,8 @@ public class Artist {
 						"code: " + e.getErrorCode() + 
 						"state: " + e.getSQLState());
 		}
-	}
+		System.out.println("IMPORTANT: Your user ID number is: " + this.userID);
+	} 
 	
 
 	

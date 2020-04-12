@@ -61,6 +61,9 @@ public class Driver {
 			scan.nextLine();
 			
 			if (option == 0) {
+				System.out.println("Enter user ID number: ");
+				int uidn = scan.nextInt();
+				
 				System.out.println("Enter user name: ");
 				scan.nextLine();	
 				String user = scan.nextLine();
@@ -74,6 +77,8 @@ public class Driver {
 				
 				if (userType == 0) { 
 					// Check if login works in Listener class 
+					Listener list = new Listener(con, uidn, user, pw);
+					
 				} else { 
 					// Check if login works in Artist class
 				}
