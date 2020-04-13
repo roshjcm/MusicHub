@@ -69,10 +69,8 @@ public class Artist {
 	public boolean releasesArticle(String title, String genre, String release_date, float price) {
 		
 		int x = (int) (Math.random()*1000);
-		System.out.println("Generated id: " + x);
 		
 		while (!isValidArticleID(x)) {
-			System.out.println("Trying userID:" + x);
 			x = (int) (Math.random()*1000);
 		}
 		
@@ -93,7 +91,7 @@ public class Artist {
 					+ "values (" + this.userID + "," + article_id + ");");
 			
 			
-			System.out.println("The article has been added : " + article_id + "," + title + "," + genre + "," + release_date + "," + price);
+			System.out.println("The article has been released : " + article_id + "," + title + "," + genre + "," + release_date + "," + price);
 			
 			stmt.close();
 		} catch (SQLException e) {
@@ -113,7 +111,7 @@ public class Artist {
 		
 		try {
 			Statement st = con.createStatement();
-			System.out.println("artist id is "+ this.userID);
+			
 			ResultSet getBalanceDetails = st.executeQuery("SELECT * FROM artists WHERE uid = " + this.userID + ";");
 			float balance = 0;
 			if (getBalanceDetails.next()) {
@@ -126,7 +124,7 @@ public class Artist {
 			
 			st.executeUpdate("UPDATE artists SET balance = " + balance
 					+ " WHERE uid =" + this.userID + ";");
-			System.out.println("the money was deposited for " +this.userID);
+			
 			st.close();
 		}catch (SQLException e) {
 			System.err.println("DEPOSITING MONEY msg: " + e.getMessage() + 
@@ -146,10 +144,8 @@ public class Artist {
 	public void createUser(){
 		
 		int x = (int) (Math.random()*1000);
-		System.out.println("Generated id: " + x);
 		
 		while (!isValidUserID(x)) {
-			System.out.println("Trying userID:" + x);
 			x = (int) (Math.random()*1000);
 		}	
 		this.userID = x;
@@ -180,7 +176,6 @@ public class Artist {
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE uid=" + id + ";");
-			System.out.println("Query executed.");
 		
 			if (rs.next() == false) { 
 				System.out.println("User id " + id + " is valid.");
@@ -204,7 +199,6 @@ private boolean isValidArticleID(int id) {
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM articles WHERE article_id=" + id + ";");
-			//System.out.println("Query executed.");
 		
 			if (rs.next() == false) { 
 				System.out.println("Article id " + id + " is valid.");

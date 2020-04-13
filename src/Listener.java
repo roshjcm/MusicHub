@@ -74,7 +74,6 @@ public class Listener {
 			ResultSetMetaData rsmd = rs.getMetaData();
 	
 			int columnsNumber = rsmd.getColumnCount();
-			System.out.println("getting to loop");
 			while (rs.next()) {
 			    for (int i = 1; i <= columnsNumber; i++) {
 			        if (i > 1) System.out.print(",  ");
@@ -136,12 +135,10 @@ public class Listener {
 										 // Increment # of articles
 			stmt.executeUpdate("UPDATE shopping_carts SET num_articles = " + num_articles
 								+ "WHERE order_id =" + order_id + ";");
-			System.out.println("shopping cart updated");
 			
 			// Add Entry to Contains 
 			stmt.executeUpdate("INSERT INTO Contains(order_id, article_id) "
 							+ "values (" + order_id + "," + article_id + ");");
-			System.out.println("item added to contains");
 			
 			stmt.close();
 		} catch (SQLException e) {
@@ -170,11 +167,8 @@ public class Listener {
 					float M = rs.getFloat("earned");
 					t.executeUpdate("INSERT INTO moneyEarned(artist_id,order_id,money_received) "
 							+ "values(" + A + "," + order_id + ","+ M + ");");
-					System.out.println("executed : INSERT INTO moneyEarned(artist_id,order_id,money_received) "
-							+ "values(" + A + "," + order_id + ","+ M + ");");
-	
+				
 					Artist artist = new Artist(con);
-					System.out.println("artist id :" + A+ " earned : " + M );
 					artist.logIn(A);
 					artist.depositEarnings(M);
 				}
@@ -351,16 +345,15 @@ public class Listener {
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE uid=" + id + ";");
-			//System.out.println("Query executed.");
-		
-			if (rs.next() == false) { 
-				System.out.println("User id " + id + " is valid.");
-				valid = true;
+			int uid = -1;
+			if (rs.next()) { 
+				uid = rs.getInt("uid");
 			}
+			valid = (uid==-1);
 			stmt.close();
 			
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
+			System.err.println("IS VALID ID msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());
 			return true;
@@ -371,10 +364,8 @@ public class Listener {
 	private void createUser(){
 		
 		int x = (int) (Math.random()*1000);
-		System.out.println("Generated id: " + x);
 		
 		while (!isValidUserID(x)) {
-			System.out.println("Trying userID:" + x);
 			x = (int) (Math.random()*1000);
 		}	
 		this.userID = x;
