@@ -1,5 +1,6 @@
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Listener {
 	
@@ -156,12 +157,38 @@ public class Listener {
 	public boolean checkOutCart(int order_id) {
 		
 		boolean completed = true;
-		
-		
-		// deposit money into artist ID (call Arist class?)
-		
-		
-		return completed;
+		// deposit money into artist ID (call Artist class?)
+			try {
+				Statement stmt = con.createStatement();
+				Statement t = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT SUM(art.price) as earned, r.artist_id FROM articles art, contains c, releases r"
+						+ " WHERE c.order_id =" + order_id 
+						+ " AND c.article_id = art.article_id AND art.article_id = r.article_id GROUP BY r.artist_id" + ";");
+
+				while (rs.next()) { 
+					int A = rs.getInt("artist_id");
+					float M = rs.getFloat("earned");
+					t.executeUpdate("INSERT INTO moneyEarned(artist_id,order_id,money_received) "
+							+ "values(" + A + "," + order_id + ","+ M + ");");
+					System.out.println("executed : INSERT INTO moneyEarned(artist_id,order_id,money_received) "
+							+ "values(" + A + "," + order_id + ","+ M + ");");
+	
+					Artist artist = new Artist(con);
+					System.out.println("artist id :" + A+ " earned : " + M );
+					artist.logIn(A);
+					artist.depositEarnings(M);
+				}
+				stmt.close();
+				t.close();
+
+			}catch (SQLException e) {
+				System.err.println("CHECK OUT CART msg: " + e.getMessage() + 
+						"code: " + e.getErrorCode() + 
+						"state: " + e.getSQLState());	
+				completed = false;
+			}
+
+			return completed;
 	}
 	
 	

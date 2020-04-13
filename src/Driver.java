@@ -90,7 +90,7 @@ public class Driver {
 						// Check if login works in Artist class
 						System.out.println("Enter your stage name: ");
 						String stage_name = scan.nextLine();
-						Artist artist = new Artist(con, "", "", "", "","", "","", "");
+						Artist artist = new Artist(con);
 						loggedIn = artist.logIn(uidn);
 						if(!loggedIn) System.out.println("Cannot log in, Please enter valid credidentials");
 					}
@@ -99,7 +99,7 @@ public class Driver {
 					Listener list = new Listener(con, uidn, user, pw);
 					ListenerMenu(list, scan);
 				}else {
-						Artist artist = new Artist(con, "", "", "", user, pw, "","", "");
+						Artist artist = new Artist(con);
 						artist.logIn(uidn);
 						ArtistMenu(artist,scan);
 					}
@@ -140,7 +140,9 @@ public class Driver {
 					 art.createUser();
 				}
 				
-				Listener list = new Listener(con, fullName, email, user, pwd, country, dateOfBirth, credit);	
+				else {
+					Listener list = new Listener(con, fullName, email, user, pwd, country, dateOfBirth, credit);	
+				}
 				
 			}
 			
@@ -235,7 +237,7 @@ public class Driver {
 						System.out.println("Y -- Yes please! ; N -- No thank you. I would like to checkout.");
 						char x = scan.next().charAt(0);
 						
-						if (x == 'Y') { 
+						if (x == 'Y'|| x == 'y') { 
 							articleID = 0;
 						} else { 
 							articleID = -1;

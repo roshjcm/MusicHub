@@ -25,6 +25,9 @@ public class Artist {
 		this.balance = (float) 0.0;
 	//	this.createUser();
 	}
+	public Artist(Connection con) {
+		this.con = con;
+	}
 
 	public boolean logIn(int userID) {
 		try { 
@@ -109,20 +112,26 @@ public class Artist {
 		boolean deposited = true;
 		
 		try {
-			Statement stmt = con.createStatement();
+			Statement st = con.createStatement();
+			System.out.println("artist id is "+ this.userID);
+			ResultSet getBalanceDetails = st.executeQuery("SELECT * FROM artists WHERE uid = " + this.userID + ";");
+			float balance = 0;
+			if (getBalanceDetails.next()) {
+				balance = getBalanceDetails.getFloat("balance");
+				balance += moneyEarned;
+			} else {
+				System.out.println("No artist at uid : " + this.userID);
+				return false;
+			}
 			
-			ResultSet getBalanceDetails = stmt.executeQuery("SELECT * FROM artists WHERE artist_id = " + this.userID + ");");
-			float balance = getBalanceDetails.getFloat("balance");
-			balance += moneyEarned;
-			
-			stmt.executeUpdate("UPDATE artists SET balance = " + balance
-					+ " WHERE artist_id =" + this.userID + ");");
-			
-			stmt.close();
+			st.executeUpdate("UPDATE artists SET balance = " + balance
+					+ " WHERE uid =" + this.userID + ";");
+			System.out.println("the money was deposited for " +this.userID);
+			st.close();
 		}catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
-					"code: " + e.getErrorCode() + 
-					"state: " + e.getSQLState());	
+			System.err.println("DEPOSITING MONEY msg: " + e.getMessage() + 
+					" code: " + e.getErrorCode() + 
+					" state: " + e.getSQLState());	
 			deposited = false;
 		}
 		
