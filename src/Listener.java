@@ -118,6 +118,36 @@ public class Listener {
 	}
 	
 	
+	public boolean searchArtist(String stage_name) {
+		boolean searched = true;
+		
+		try {
+			// Get Cart Details
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT a.article_id, a.title, a.genre, a.price FROM articles a, releases r, artists ar WHERE ar.stage_name = '" 
+			+ stage_name + "' AND r.artist_id = ar.uid AND a.article_id = r.article_id;");
+			ResultSetMetaData rsmd = rs.getMetaData();
+			
+			int columnsNumber = rsmd.getColumnCount();
+			while (rs.next()) {
+			    for (int i = 1; i <= columnsNumber; i++) {
+			        if (i > 1) System.out.print(",  ");
+			        String colVal = rs.getString(i);
+			        System.out.print(colVal + " " + rsmd.getColumnName(i));
+			    }
+			    System.out.println("");
+			}
+			
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("ADD TO CART msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			searched = false;
+		}
+		return searched;
+	}
+	
 	public boolean addToCart(int order_id, int article_id) {
 		
 		boolean added = true;

@@ -221,30 +221,41 @@ public class Driver {
 				int articleID = 0;
 				int orderID = listener.createCart();
 				System.out.println("Your order ID is: " + orderID);
-				System.out.println("Reminder: to buy an article, please remember your order ID number as well as the ID number of the song or album you wish to purchase. \n"
-						+ "To view the ID number of a song or album, print your library.");
+				System.out.println("Reminder: to buy an article, please search for an known artist by its stage "
+						+ "name and select an article by entering its id. \n");
 				
 				while (articleID != -1) { 
-					boolean success = true;  // **
-					System.out.println("Please enter the ID number of the song or album you wish to add to your cart: ");
+					boolean search = true;
+					System.out.println("Please enter the artist name you want to search: ");
 					
-					articleID = scan.nextInt();
+					scan.nextLine();
+					String stage_name = scan.nextLine();
 					
-					success = listener.addToCart(orderID, articleID);
+					search = listener.searchArtist(stage_name);
 					
-					if (success) { 
-						System.out.println("Item successfully added to shopping cart. Would you like to add another item to your cart?");
-						System.out.println("Y -- Yes please! ; N -- No thank you. I would like to checkout.");
-						char x = scan.next().charAt(0);
+					if (search) {
+						boolean success = true;
 						
-						if (x == 'Y'|| x == 'y') { 
-							articleID = 0;
+						System.out.println("Please enter the ID number of the song or album you wish to add to your cart: ");
+						
+						articleID = scan.nextInt();
+						
+						success = listener.addToCart(orderID, articleID);
+						
+						if (success) { 
+							System.out.println("Item successfully added to shopping cart. Would you like to add another item to your cart?");
+							System.out.println("Y -- Yes please! ; N -- No thank you. I would like to checkout.");
+							char x = scan.next().charAt(0);
+							
+							if (x == 'Y'|| x == 'y') { 
+								articleID = 0;
+							} else { 
+								articleID = -1;
+							}
 						} else { 
-							articleID = -1;
+							System.out.println("Article ID does not exist");
 						}
-					} else { 
-						System.out.println("Article ID does not exist");
-					}
+					}else System.out.println("Artist stage name does not exist");
 				}
 				
 				listener.checkOutCart(orderID);
