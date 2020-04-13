@@ -4,9 +4,9 @@ import java.sql.*;
 public class Artist {
 	
 	private Connection con;
-	private int userID;
-	private String stageName, name, email, username, password, country, creditInfo, dob;
-	private float balance;
+	public int userID;
+	public String stageName, name, email, username, password, country, creditInfo, dob;
+	public float balance;
 	
 	
 	public Artist(Connection con, String name, String stageName, String email, 
@@ -23,43 +23,80 @@ public class Artist {
 		
 		this.stageName = name;
 		this.balance = (float) 0.0;
-		this.createUser();
+	//	this.createUser();
+	}
+
+	public boolean logIn(int userID) {
+		try { 
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM artists WHERE uid=" + userID + ";");
+			
+			if (rs.next() == false) { 
+				return false;
+			}else {
+				this.userID = rs.getInt("uid");
+				this.stageName = rs.getString("stage_name");
+				this.balance = rs.getFloat("balance");
+				
+				ResultSet hs = stmt.executeQuery("SELECT * FROM users WHERE uid=" + userID + ";");
+				if (hs.next() == false) { 
+					return false;
+				} else {
+					this.userID = hs.getInt(1);
+					this.name = hs.getString(2);
+					this.username = hs.getString(3);
+					this.country = hs.getString(4);
+					this.email = hs.getString(5);
+					this.dob = hs.getString(6);
+					this.creditInfo = hs.getString(7);
+				}
+			}
+		
+
+			stmt.close();
+		} catch (SQLException e) {
+			System.err.println("LOG IN ARTIST msg: " + e.getMessage() + 
+					" code: " + e.getErrorCode() + 
+					" state: " + e.getSQLState());	
+			return false;
+		}
+		return true;
 	}
 	
-	
-	
-	
-	
-	public boolean releaseArticle(String title, String genre, float price, int type, String duration, String album_type) {
+	public boolean releasesArticle(String title, String genre, String release_date, float price) {
 		
-		// if int = 0, song; = 1, album)
+		int x = (int) (Math.random()*1000);
+		System.out.println("Generated id: " + x);
+		
+		while (!isValidArticleID(x)) {
+			System.out.println("Trying userID:" + x);
+			x = (int) (Math.random()*1000);
+		}
+		
+		int article_id = x;
 		
 		boolean released = true;
-		int article_id = createArticleID();
-		String release_date = "2020-04-12"; // generate today's date + turn into String
-				
+		
 		try { 
 
 			Statement stmt = con.createStatement();
-			
+
 			// Creates article	
 			stmt.executeUpdate("INSERT INTO articles(article_id,title,genre,release_date,price) "
-							+ "values (" + article_id + "," + title + "," + genre + "," + release_date + "," + price + ");");
+					+ "values(" + article_id + ",'" + title + "','" + genre + "','" +release_date + "'," + price + ");");
 			
 			// Adds entry to Releases table
 			stmt.executeUpdate("INSERT INTO Releases(artist_id,article_id) "
 					+ "values (" + this.userID + "," + article_id + ");");
 			
-			if (type==0) { 
-				stmt.executeUpdate("INSERT INTO songs(article_id,duration) values (" + article_id + "," + duration + ");");
-			} else { 
-				stmt.executeUpdate("INSERT INTO albums(article_id,type) values (" + article_id + "," + album_type + ");");
-			}
 			
+			System.out.println("The article has been added : " + article_id + "," + title + "," + genre + "," + release_date + "," + price);
+			
+			stmt.close();
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
-					"code: " + e.getErrorCode() + 
-					"state: " + e.getSQLState());
+			System.err.println("Adding Article : msg: " + e.getMessage() + 
+					" code: " + e.getErrorCode() + 
+					" state: " + e.getSQLState());
 			released = false;
 		}
 		return released;	
@@ -67,9 +104,28 @@ public class Artist {
 	
 	
 	
-	public boolean depositEarnings () { 
+	public boolean depositEarnings (float moneyEarned) { 
 		
 		boolean deposited = true;
+		
+		try {
+			Statement stmt = con.createStatement();
+			
+			ResultSet getBalanceDetails = stmt.executeQuery("SELECT * FROM artists WHERE artist_id = " + this.userID + ");");
+			float balance = getBalanceDetails.getFloat("balance");
+			balance += moneyEarned;
+			
+			stmt.executeUpdate("UPDATE artists SET balance = " + balance
+					+ " WHERE artist_id =" + this.userID + ");");
+			
+			stmt.close();
+		}catch (SQLException e) {
+			System.err.println("msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());	
+			deposited = false;
+		}
+		
 		
 		// not sure how to implement
 		
@@ -78,7 +134,7 @@ public class Artist {
 	}
 	
 	
-	private void createUser(){
+	public void createUser(){
 		
 		int x = (int) (Math.random()*1000);
 		System.out.println("Generated id: " + x);
@@ -90,26 +146,23 @@ public class Artist {
 		this.userID = x;
 		
 		try {
-				
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate("INSERT INTO users(uid,name,username,country,email,dob,credit_info) "
-								+ "values (" + this.userID + ", \'" + this.name + "\', \'" + this.username
-								+ "\', \'" + this.country + "\', \'" + this.email + "\'," + this.dob + "," 
+								+ "values (" + this.userID + ",'" + this.name + "', '" + this.username
+								+ "', '" + this.country + "', '" + this.email + "','" + this.dob + "'," 
 								+ this.creditInfo + ");");
 				
-				stmt.executeUpdate("INSERT INTO artist(uid, stage_name,balance) values (" + 
-									this.userID + "," + this.stageName + "," + this.balance + ");");
+				stmt.executeUpdate("INSERT INTO artists(uid, stage_name,balance) values (" + 
+									this.userID + ",'" + this.stageName + "'," + this.balance + ");");
 				
-				System.out.println("Artist user successfully created + added to DB.");
+				System.out.println("Artist user successfully created and added to DB.");
 				stmt.close();
 			} catch (SQLException e) {
-				System.err.println("msg: " + e.getMessage() + 
+				System.err.println("CREATING ARTIST USER msg: " + e.getMessage() + 
 						"code: " + e.getErrorCode() + 
 						"state: " + e.getSQLState());
 		}
 	}
-	
-
 	
 	private boolean isValidUserID(int id) { 
 		
@@ -127,7 +180,7 @@ public class Artist {
 			stmt.close();
 			
 		} catch (SQLException e) {
-			System.err.println("msg: " + e.getMessage() + 
+			System.err.println(" is valid user id : msg: " + e.getMessage() + 
 					"code: " + e.getErrorCode() + 
 					"state: " + e.getSQLState());
 			return true;
@@ -135,32 +188,28 @@ public class Artist {
 		return valid;
 	}
 	
+private boolean isValidArticleID(int id) { 
 		
-	private int createArticleID() { 
+		boolean valid = false;
+		
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM articles WHERE article_id=" + id + ";");
+			//System.out.println("Query executed.");
+		
+			if (rs.next() == false) { 
+				System.out.println("Article id " + id + " is valid.");
+				valid = true;
+			}
+			stmt.close();
 			
-			int articleID = 0;
-			boolean aid_exists = true;
-			
-			try { 
-				// checks if article id already exists
-				while (aid_exists) {
-					articleID = (int) (Math.random()*1000);
-	
-					Statement stmt = con.createStatement();
-					ResultSet rs = stmt.executeQuery("SELECT * FROM articles WHERE article_id=" + articleID + ";");
-					
-					if (rs.next() == false) { 
-						aid_exists = false;
-					}
-					stmt.close();
-				}
-			} catch (SQLException e) {
-				System.err.println("msg: " + e.getMessage() + 
-						"code: " + e.getErrorCode() + 
-						"state: " + e.getSQLState());
-				return 0;
-			}	
-			return articleID;
+		} catch (SQLException e) {
+			System.err.println(" checking article id : msg: " + e.getMessage() + 
+					"code: " + e.getErrorCode() + 
+					"state: " + e.getSQLState());
+			return true;
 		}
+		return valid;
+	}
 
 }
